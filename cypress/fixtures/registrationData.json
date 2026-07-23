@@ -1,0 +1,15 @@
+{
+    "lastName": "Upadhye",
+    "password": "abcd@ef",
+    "company": "Infosys",
+    "address1": "Kalat Nagar, Hinjewadi",
+    "address2": "Phase2",
+    "country": "India",
+    "state": "Maharashtra",
+    "city": "Pune",
+    "zipcode": "411057",
+    "mobilenumber": "124567890",
+    "birthDay": "28",
+    "birthMonth": "3",
+    "birthYear": "2000"
+}

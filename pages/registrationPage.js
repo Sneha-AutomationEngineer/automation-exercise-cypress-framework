@@ -1,0 +1,74 @@
+export default class RegistrationPage {
+
+    signupNameTextbox = 'input[data-qa="signup-name"]';
+    newUserEmailTextBox = 'input[data-qa="signup-email"]';
+    signUpButton = 'button[data-qa="signup-button"]';
+    preFilledUserName = '#name';
+    preFilledEmail = '#email';
+    birthDayDropdown = '#days';
+    birthMonthDropdown = '#months';
+    birthYearDropdown = '#years';
+    genderSelectionRadio = '#id_gender2';
+    registrationPasswordTextbox = '#password';
+    newsletterCheckbox = '#newsletter';
+    offersCheckbox = '#optin';
+    firstNameTextBox = '#first_name';
+    lastNameTextBox = '#last_name';
+    companyTextBox = '#company';
+    address1TextBox = '#address1';
+    address2TextBox = '#address2';
+    countryDropdown = '#country';
+    stateTextBox = '#state';
+    cityTextBox = '#city';
+    zipcodeTextBox = '#zipcode';
+    mobileNumberTextBox = '#mobile_number';
+    createAccountButton = 'button[data-qa="create-account"]';
+    accountCreatedTitle = '.title';
+
+    enterSignupDetails(user, randomEmail) {
+        cy.get(this.signupNameTextbox).type(user);
+        cy.get(this.newUserEmailTextBox).type(randomEmail);
+        cy.get(this.signUpButton).click();
+    }
+
+    verifyPreFilledInformation(user, randomEmail){
+        cy.get(this.preFilledUserName).should('have.value', user);
+        cy.get(this.preFilledEmail).should('have.value', randomEmail);
+    }
+
+    enterBirthDate(birthDay, birthMonth, birthYear) {
+        cy.get(this.birthDayDropdown).select(birthDay);
+        cy.get(this.birthMonthDropdown).select(birthMonth);
+        cy.get(this.birthYearDropdown).select(birthYear);
+    }
+
+    enterAccountInformation(password, birthDay, birthMonth, birthYear) {
+        cy.get(this.genderSelectionRadio).check().should('be.checked');
+        cy.get(this.registrationPasswordTextbox).type(password);
+        this.enterBirthDate(birthDay, birthMonth, birthYear);
+        cy.get(this.newsletterCheckbox).check().should('be.checked');
+        cy.get(this.offersCheckbox).check().should('be.checked');
+    }
+
+    enterAddressInformation(user, lastName, company, address1, address2, country, state, city, zipcode, mobilenumber){
+        cy.get(this.firstNameTextBox).type(user);
+        cy.get(this.lastNameTextBox).type(lastName);
+        cy.get(this.companyTextBox).type(company);
+        cy.get(this.address1TextBox).type(address1);
+        cy.get(this.address2TextBox).type(address2);
+        cy.get(this.countryDropdown).select(country);
+        cy.get(this.stateTextBox).type(state);
+        cy.get(this.cityTextBox).type(city);
+        cy.get(this.zipcodeTextBox).type(zipcode);
+        cy.get(this.mobileNumberTextBox).type(mobilenumber);
+    }
+
+    clickCreateAccount(){
+        cy.get(this.createAccountButton).click();
+    }
+
+    verifyAccountCreated(){
+        cy.get(this.accountCreatedTitle).should('have.text','Account Created!')
+    }
+
+}
