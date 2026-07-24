@@ -2,6 +2,7 @@ export default class HomePage {
 
     loginLink = '[href="/login"]';
     logoutLink = '[href="/logout"]';
+    homePageVerify = '#slider-carousel';
 
     openLoginPage() {
         cy.get(this.loginLink).click();
@@ -13,5 +14,9 @@ export default class HomePage {
 
     clickLogout(){
         cy.get(this.logoutLink).click();
+    }
+
+    verifyHomePageDisplayed(){
+        cy.get(this.homePageVerify).should('be.visible');
     }
 }

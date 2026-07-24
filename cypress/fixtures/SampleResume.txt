@@ -1,0 +1,8 @@
+Sample Resume
+
+Name: Sneha Upadhye
+
+Role: Software Test Engineer
+
+Purpose:
+This document is used to verify file upload functionality as part of the Cypress automation framework demonstration.
