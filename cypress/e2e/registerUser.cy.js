@@ -42,7 +42,7 @@ describe('New User Registration', function () {
         registrationPage.verifyAccountCreated();
     })
 
-    it.only('Register user with existing email should not allow', function () {
+    it('Register user with existing email should not allow', function () {
         registrationPage.enterRegisteredEmail(loginData.user, loginData.username);
         registrationPage.verifyExistingEmailErrorMessage();
     })
