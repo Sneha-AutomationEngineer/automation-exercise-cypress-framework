@@ -4,5 +4,5 @@
   "user": "sneha",
   "inValidUsername": "Neha@gmail.com",
   "inValidPassword": "abcef",
-  "loginErrorMessage": "Your email or password is incorrect!" 
+  "loginErrorMessage": "Your email or password is incorrect!"
 }

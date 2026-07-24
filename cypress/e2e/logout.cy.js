@@ -4,12 +4,12 @@ import HomePage from '../../pages/homePage';
 describe('Logout Scenario', function(){
 
 let loginPage;   
-let data;
+let loginData;
 let homePage;
 
    before(function(){
       cy.fixture('loginData').then((testdata) =>{
-        data = testdata;
+        loginData = testdata;
         loginPage = new LoginPage();
         homePage = new HomePage();
       })
@@ -21,9 +21,9 @@ let homePage;
     })
 
     it('User should logout successfully', function(){
-        loginPage.login(data.username, data.password);
-        homePage.verifyLoggedInUser(data.user);
-        homePage.clickLogout()();
+        loginPage.login(loginData.username, loginData.password);
+        homePage.verifyLoggedInUser(loginData.user);
+        homePage.clickLogout();
         loginPage.verifySignUpPage();
     })
 })
