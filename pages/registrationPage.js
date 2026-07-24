@@ -24,6 +24,7 @@ export default class RegistrationPage {
     mobileNumberTextBox = '#mobile_number';
     createAccountButton = 'button[data-qa="create-account"]';
     accountCreatedTitle = '.title';
+    existingEmailErrorMessage = 'Email Address already exist!';
 
     enterSignupDetails(user, randomEmail) {
         cy.get(this.signupNameTextbox).type(user);
@@ -31,7 +32,7 @@ export default class RegistrationPage {
         cy.get(this.signUpButton).click();
     }
 
-    verifyPreFilledInformation(user, randomEmail){
+    verifyPreFilledInformation(user, randomEmail) {
         cy.get(this.preFilledUserName).should('have.value', user);
         cy.get(this.preFilledEmail).should('have.value', randomEmail);
     }
@@ -50,7 +51,7 @@ export default class RegistrationPage {
         cy.get(this.offersCheckbox).check().should('be.checked');
     }
 
-    enterAddressInformation(user, lastName, company, address1, address2, country, state, city, zipcode, mobilenumber){
+    enterAddressInformation(user, lastName, company, address1, address2, country, state, city, zipcode, mobilenumber) {
         cy.get(this.firstNameTextBox).type(user);
         cy.get(this.lastNameTextBox).type(lastName);
         cy.get(this.companyTextBox).type(company);
@@ -63,12 +64,21 @@ export default class RegistrationPage {
         cy.get(this.mobileNumberTextBox).type(mobilenumber);
     }
 
-    clickCreateAccount(){
+    clickCreateAccount() {
         cy.get(this.createAccountButton).click();
     }
 
-    verifyAccountCreated(){
-        cy.get(this.accountCreatedTitle).should('have.text','Account Created!')
+    verifyAccountCreated() {
+        cy.get(this.accountCreatedTitle).should('have.text', 'Account Created!')
     }
 
+    enterRegisteredEmail(user, username) {
+        cy.get(this.signupNameTextbox).type(user);
+        cy.get(this.newUserEmailTextBox).type(username);
+        cy.get(this.signUpButton).click();
+    }
+
+    verifyExistingEmailErrorMessage() {
+        cy.contains(this.existingEmailErrorMessage).should('be.visible');
+    }
 }

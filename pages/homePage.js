@@ -12,6 +12,6 @@ export default class HomePage {
     }
 
     clickLogout(){
-        cy.get(this.logoutLinkButton).click();
+        cy.get(this.logoutLink).click();
     }
 }

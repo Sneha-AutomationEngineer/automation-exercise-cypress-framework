@@ -13,11 +13,11 @@ export default class LoginPage {
         cy.get(this.loginButton).click();
     }
 
-    verifyLoginError(expectedErrorMessage){
-        cy.contains(expectedErrorMessage).should('be.visible');        
+    verifyLoginError(expectedErrorMessage) {
+        cy.contains(expectedErrorMessage).should('be.visible');
     }
 
-    verifySignUpPage(){
-        cy.get(this.newUserRegistrationHeader).should('have.text','New User Signup!');
+    verifySignUpPage() {
+        cy.get(this.newUserRegistrationHeader).should('have.text', 'New User Signup!');
     }
 }

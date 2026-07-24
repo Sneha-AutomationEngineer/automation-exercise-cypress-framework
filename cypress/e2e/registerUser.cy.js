@@ -7,16 +7,23 @@ describe('New User Registration', function () {
     let homePage;
     let registrationPage;
     let loginPage;
-    let data;
+    let registrationData;
+    let loginData;
     let randomEmail;
 
     before(function () {
         cy.fixture('loginData').then((testData) => {
-            data = testData;
-            loginPage = new LoginPage;
-            homePage = new HomePage();
-            registrationPage = new RegistrationPage();
+            loginData = testData;
         })
+
+        cy.fixture('registrationData').then((testData) => {
+            registrationData = testData;
+        })
+
+        loginPage = new LoginPage();
+        homePage = new HomePage();
+        registrationPage = new RegistrationPage();
+
     })
 
     beforeEach(function () {
@@ -27,11 +34,16 @@ describe('New User Registration', function () {
 
     it('New User should be able to register successfully', function () {
         loginPage.verifySignUpPage();
-        registrationPage.enterSignupDetails(data.user, randomEmail);
-        registrationPage.verifyPreFilledInformation(data.user, randomEmail);
-        registrationPage.enterAccountInformation(data.password, data.birthDay, data.birthMonth, data.birthYear);
-        registrationPage.enterAddressInformation(data.user, data.lastName, data.company, data.address1, data.address2, data.country, data.state, data.city, data.zipcode, data.mobilenumber)
+        registrationPage.enterSignupDetails(loginData.user, randomEmail);
+        registrationPage.verifyPreFilledInformation(loginData.user, randomEmail);
+        registrationPage.enterAccountInformation(registrationData.password, registrationData.birthDay, registrationData.birthMonth, registrationData.birthYear);
+        registrationPage.enterAddressInformation(loginData.user, registrationData.lastName, registrationData.company, registrationData.address1, registrationData.address2, registrationData.country, registrationData.state, registrationData.city, registrationData.zipcode, registrationData.mobilenumber)
         registrationPage.clickCreateAccount();
         registrationPage.verifyAccountCreated();
+    })
+
+    it.only('Register user with existing email should not allow', function () {
+        registrationPage.enterRegisteredEmail(loginData.user, loginData.username);
+        registrationPage.verifyExistingEmailErrorMessage();
     })
 })
