@@ -4,6 +4,7 @@ export default class HomePage {
     logoutLink = '[href="/logout"]';
     homePageVerify = '#slider-carousel';
     testCasePageLink = ' li a[href="/test_cases"]';
+    productsPageLink = 'a[href="/products"]';
 
     openLoginPage() {
         cy.get(this.loginLink).click();
@@ -24,4 +25,9 @@ export default class HomePage {
     openTestCasesPage(){
         cy.get(this.testCasePageLink).click();
     }
+
+    openProductsPage(){
+        cy.get(this.productsPageLink).click();
+    }
+
 }
