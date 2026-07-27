@@ -7,12 +7,15 @@ export default class ProductPage{
     productName = 'h2';
     productInformationText = 'p';
     productPrice = 'span span';
+    searchBar = '#search_product';
+    searchIconButton = '#submit_search';
+    searchedProductDetail = '.productinfo p';
 
     verifyProductsPageDisplayed(productPageHeaderText){
         cy.get(this.productsPageHeader).should('have.text', productPageHeaderText);
     }
 
-    verifyAllProductsVisible(){
+    verifyProductsListDisplayed(){
         cy.get(this.products).should('be.visible');
         cy.get(this.productCards).should('have.length.greaterThan', 0);
     }
@@ -30,5 +33,18 @@ export default class ProductPage{
         cy.contains(this.productInformationText, 'Condition').should('be.visible');  
         cy.contains(this.productInformationText, 'Brand').should('be.visible');
         })
+    }
+
+    searchProduct(productName){
+        cy.get(this.searchBar).type(productName);
+        cy.get(this.searchIconButton).click();
+    }
+
+    verifySearchedProductDisplayed(productsPageHeader){
+        cy.get(this.productsPageHeader).should('contain.text', productsPageHeader);
+    }
+
+    verifySearchedProduct(productName){
+        cy.get(this.searchedProductDetail).should('contain.text', productName);
     }
 }
