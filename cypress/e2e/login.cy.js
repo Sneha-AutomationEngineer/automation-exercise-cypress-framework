@@ -1,4 +1,4 @@
-import LoginPage from '../../pages/LoginPage'
+import LoginPage from '../../pages/loginPage'
 import HomePage from '../../pages/HomePage'
 
 describe('Login Scenarios', () => {
