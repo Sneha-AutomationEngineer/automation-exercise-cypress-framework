@@ -23,9 +23,9 @@ export default class ProductPage{
 
     verifyProductDetailsDisplayed(){
         cy.get(this.productInformation).within(() => {
-        cy.get(this.productName).should('be.visible');
+        cy.get(this.productName).should('be.visible').invoke('text').should('not.be.empty');;
         cy.contains(this.productInformationText, 'Category').should('be.visible');
-        cy.get(this.productPrice).should('be.visible');
+        cy.get(this.productPrice).should('be.visible').invoke('text').should('not.be.empty');;
         cy.contains(this.productInformationText, 'Availability').should('be.visible');
         cy.contains(this.productInformationText, 'Condition').should('be.visible');  
         cy.contains(this.productInformationText, 'Brand').should('be.visible');
