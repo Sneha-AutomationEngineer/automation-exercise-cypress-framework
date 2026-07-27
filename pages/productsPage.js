@@ -10,7 +10,6 @@ export default class ProductPage{
     searchBar = '#search_product';
     searchIconButton = '#submit_search';
     searchedProductDetail = '.productinfo p';
-    searchedProductsHeader = '.title';
 
     verifyProductsPageDisplayed(productPageHeaderText){
         cy.get(this.productsPageHeader).should('have.text', productPageHeaderText);
@@ -41,8 +40,8 @@ export default class ProductPage{
         cy.get(this.searchIconButton).click();
     }
 
-    verifySearchedProductDisplayed(searchedProductsHeader){
-        cy.get(this.searchedProductsHeader).should('contain.text', searchedProductsHeader);
+    verifySearchedProductDisplayed(productsPageHeader){
+        cy.get(this.productsPageHeader).should('contain.text', productsPageHeader);
     }
 
     verifySearchedProduct(productName){

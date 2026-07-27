@@ -24,7 +24,7 @@ describe('Search Product', function(){
         homePage.openProductsPage();
         productsPage.verifyProductsPageDisplayed(productsData.productPageHeaderText);
         productsPage.searchProduct(productsData.productName);
-        productsPage.verifySearchedProductDisplayed(productsData.searchedProductsHeader);
+        productsPage.verifySearchedProductDisplayed(productsData.productsPageHeader);
         productsPage.verifyProductsListDisplayed();
         productsPage.verifySearchedProduct(productsData.productName);
     })
