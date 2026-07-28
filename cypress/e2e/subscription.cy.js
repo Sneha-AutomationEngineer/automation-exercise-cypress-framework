@@ -30,7 +30,7 @@ describe('Subscription Page', function () {
         homePage.verifySubscriptionSuccessMessage(homePageData.subscriptionSuccessMessage);
     })
 
-    it('should subscribe successfully from the home page', function () {
+    it('should subscribe successfully from the cart page', function () {
         homePage.openCartPage();
         homePage.scrollTo(homePageData.scrollBottom);
         homePage.verifySubscriptionText(homePageData.subscriptionHeader);
