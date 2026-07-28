@@ -9,6 +9,7 @@ export default class HomePage {
     subscriptionEmailBox = '#susbscribe_email';
     subscriptionArrowButton = '#subscribe';
     subscriptionSuccessMessage = '.alert-success';
+    shoppingCartLink = 'li a[href="/view_cart"]';
 
     openLoginPage() {
         cy.get(this.loginLink).click();
@@ -49,5 +50,9 @@ export default class HomePage {
 
     verifySubscriptionSuccessMessage(subscriptionSuccessMessage){
         cy.get(this.subscriptionSuccessMessage).should('have.text', subscriptionSuccessMessage);
+    }
+
+    openCartPage(){
+        cy.get(this.shoppingCartLink).click();
     }
 }
