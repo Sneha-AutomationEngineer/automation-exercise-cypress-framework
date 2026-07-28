@@ -10,6 +10,10 @@ export default class ProductPage{
     searchBar = '#search_product';
     searchIconButton = '#submit_search';
     searchedProductDetail = '.productinfo p';
+    viewCartLinkInPopup = 'a[href="/view_cart"] u';
+    addCartButton = '.add-to-cart';
+    priceTag = 'h2';
+    productCards  = '.productinfo';
 
     verifyProductsPageDisplayed(productPageHeaderText){
         cy.get(this.productsPageHeader).should('have.text', productPageHeaderText);
@@ -46,5 +50,28 @@ export default class ProductPage{
 
     verifySearchedProduct(productName){
         cy.get(this.searchedProductDetail).should('contain.text', productName);
+    }
+
+    captureAndAddFirstTwoProducts(continueShopping){
+        const productPrices = [];
+        cy.get(this.productCards).each(($product, index) => {
+            if (index < 2) {
+                cy.wrap($product).within(() => {
+                    cy.get(this.priceTag).invoke('text').then((price) => {
+                        productPrices.push(price);
+                        cy.get(this.addCartButton).click();
+                    })
+                })
+            }
+            if (index === 0) {
+                cy.contains(continueShopping).click();
+            }
+            if (index === 1) {
+                cy.get(this.viewCartLinkInPopup).click();
+            }
+        })
+        return cy.then(()=>{
+            return productPrices;
+        })
     }
 }
