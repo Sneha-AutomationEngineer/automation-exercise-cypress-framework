@@ -29,4 +29,12 @@ describe('Subscription Page', function () {
         homePage.subscribeWithEmail(loginData.username);
         homePage.verifySubscriptionSuccessMessage(homePageData.subscriptionSuccessMessage);
     })
+
+    it('should subscribe successfully from the cart page', function () {
+        homePage.openCartPage();
+        homePage.scrollTo(homePageData.scrollBottom);
+        homePage.verifySubscriptionText(homePageData.subscriptionHeader);
+        homePage.subscribeWithEmail(loginData.username);
+        homePage.verifySubscriptionSuccessMessage(homePageData.subscriptionSuccessMessage);
+    })
 })
