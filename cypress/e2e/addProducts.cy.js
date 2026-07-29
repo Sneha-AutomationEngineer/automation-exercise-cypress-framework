@@ -8,10 +8,14 @@ describe('Add Products', function () {
     let productsPage;
     let cartPage;
     let productsData;
+    let cartData;
 
     before(function () {
         cy.fixture('productsData').then((testData) => {
             productsData = testData;
+        })
+         cy.fixture('cartData').then((testData) => {
+            cartData = testData;
         })
     })
 
@@ -29,7 +33,7 @@ describe('Add Products', function () {
         productsPage.captureAndAddFirstTwoProducts(productsData.continueShopping).then((productPrices) => {
             cartPage.verifyProductsInCart();
             cartPage.verifyProductPrice(productPrices);
-            cartPage.verifyProductQuantity();
+            cartPage.verifyProductQuantity(cartData.deafualtQuantity);
             cartPage.verifyTotalPriceOfProduct(productPrices);
         });
     })

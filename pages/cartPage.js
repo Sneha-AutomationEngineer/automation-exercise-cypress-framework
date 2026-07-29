@@ -17,9 +17,9 @@ export default class CartPage {
         })
     }
 
-    verifyProductQuantity() {
-        cy.get(this.cartQuantity).should('have.length', 2).each(($quantity) => {
-            cy.wrap($quantity).should('be.visible').should('have.text', '1');
+    verifyProductQuantity(expectedQuantity) {
+        cy.get(this.cartQuantity).each(($quantity) => {
+            cy.wrap($quantity).should('be.visible').should('have.text', expectedQuantity);
         })
     }
 
@@ -30,5 +30,4 @@ export default class CartPage {
             });
         })
     }
-
 }
