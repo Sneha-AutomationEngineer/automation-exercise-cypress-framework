@@ -1,4 +1,5 @@
 {
     "quantityOfProduct": "4",
-    "deafualtQuantity": "1"
+    "defaultQuantity": "1",
+    "message": "Please deliver the order as soon as possible."
 }

@@ -33,8 +33,8 @@ describe('Add Products', function () {
         productsPage.captureAndAddFirstTwoProducts(productsData.continueShopping).then((productPrices) => {
             cartPage.verifyProductsInCart();
             cartPage.verifyProductPrice(productPrices);
-            cartPage.verifyProductQuantity(cartData.deafualtQuantity);
-            cartPage.verifyTotalPriceOfProduct(productPrices);
+            cartPage.verifyProductQuantity(cartData.defaultQuantity);
+            cartPage.verifyIndividualProductTotal(productPrices);
         });
     })
 })

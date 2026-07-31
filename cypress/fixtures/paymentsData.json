@@ -1,0 +1,8 @@
+{
+    "paymentHeaderText": "Payment",
+    "cardNumber": "012512512",
+    "cardCVC": "321",
+    "cardExpiryMonth": "02",
+    "cardExpiryYear": "2040",
+    "orderPlacedSuccessMessage": "Order Placed!"
+}

@@ -25,7 +25,7 @@ describe('Product Page', function(){
         homePage.openProductsPage();
         productPage.verifyProductsPageDisplayed(productsData.productPageHeaderText);
         productPage.verifyAllProductsVisible();
-        productPage.openFirstProductDetails(productsData.viewProductText); 
+        productPage.clickFirstViewProduct(productsData.viewProductText); 
         productPage.verifyProductDetailsDisplayed();
     })
 })

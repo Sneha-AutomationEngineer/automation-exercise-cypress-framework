@@ -10,6 +10,7 @@ export default class HomePage {
     subscriptionArrowButton = '#subscribe';
     subscriptionSuccessMessage = '.alert-success';
     shoppingCartLink = 'li a[href="/view_cart"]';
+    deleteAccountLink = 'a[href="/delete_account"]';
 
     openLoginPage() {
         cy.get(this.loginLink).click();
@@ -55,4 +56,13 @@ export default class HomePage {
     openCartPage(){
         cy.get(this.shoppingCartLink).click();
     }
+
+    deleteAccount(){
+        cy.get(this.deleteAccountLink).click();
+    }
+    
+    verifyAccountDeletedAndClickContinue(accountDeletedMessage, continueAfterAccountDelete){
+        cy.contains(accountDeletedMessage).should('be.visible');
+        cy.contains(continueAfterAccountDelete).click();
+    }     
 }

@@ -1,5 +1,7 @@
 {
     "subscriptionHeader" : "Subscription",
     "subscriptionSuccessMessage" : "You have been successfully subscribed!",
-    "scrollBottom": "bottom"
+    "scrollBottom": "bottom",
+    "accountDeletedMessage": "Account Deleted!",
+    "continueAfterAccountDelete": "Continue"
 }
