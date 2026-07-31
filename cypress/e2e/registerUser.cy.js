@@ -37,7 +37,7 @@ describe('New User Registration', function () {
         registrationPage.enterSignupDetails(loginData.user, randomEmail);
         registrationPage.verifyPreFilledInformation(loginData.user, randomEmail);
         registrationPage.enterAccountInformation(registrationData.password, registrationData.birthDay, registrationData.birthMonth, registrationData.birthYear);
-        registrationPage.enterAddressInformation(loginData.user, registrationData.lastName, registrationData.company, registrationData.address1, registrationData.address2, registrationData.country, registrationData.state, registrationData.city, registrationData.zipcode, registrationData.mobilenumber)
+        registrationPage.enterAddressInformation(loginData.user,registrationData);
         registrationPage.clickCreateAccount();
         registrationPage.verifyAccountCreated();
     })

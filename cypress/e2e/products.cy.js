@@ -24,7 +24,7 @@ describe('Product Page', function(){
     it('should display all products and product details successfully', function () {
         homePage.openProductsPage();
         productPage.verifyProductsPageDisplayed(productsData.productPageHeaderText);
-        productPage.verifyAllProductsVisible();
+        productPage.verifyProductsListDisplayed();
         productPage.clickFirstViewProduct(productsData.viewProductText); 
         productPage.verifyProductDetailsDisplayed();
     })

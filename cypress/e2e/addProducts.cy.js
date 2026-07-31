@@ -30,7 +30,7 @@ describe('Add Products', function () {
 
     it('Should add products in cart successfully', function () {
         homePage.openProductsPage();
-        productsPage.captureAndAddFirstTwoProducts(productsData.continueShopping).then((productPrices) => {
+        productsPage.captureAndAddFirstTwoProducts(productsData.continueShopping).then(({productPrices}) => {
             cartPage.verifyProductsInCart();
             cartPage.verifyProductPrice(productPrices);
             cartPage.verifyProductQuantity(cartData.defaultQuantity);
