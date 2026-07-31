@@ -26,7 +26,7 @@ export default class ProductPage {
         cy.get(this.productCards).should('have.length.greaterThan', 0);
     }
 
-    openFirstProductDetails(viewProductText) {
+    clickFirstViewProduct(viewProductText) {
         cy.get(this.productCards).first().find('a').contains(viewProductText).click();
     }
 

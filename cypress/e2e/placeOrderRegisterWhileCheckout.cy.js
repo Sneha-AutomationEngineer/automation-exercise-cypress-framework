@@ -85,7 +85,7 @@ describe('Place product and checkout', function () {
             cartPage.verifyProductPrice(productPrices);
             cartPage.verifyProductName(productNames);
             cartPage.verifyProductQuantity(cartData.defaultQuantity);
-            cartPage.verifyGrandTotal();
+            cartPage.verifyGrandTotal(productPrices);
             cartPage.enterMessageInCommentBox(cartData.message);
             cartPage.clickCheckoutButton();
             paymentPage.verifyPaymentPageHeader(paymentsData.paymentHeaderText);

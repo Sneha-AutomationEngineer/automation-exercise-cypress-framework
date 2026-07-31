@@ -3,7 +3,8 @@ export default class CartPage {
     numberOfProducts = 'tbody tr';
     cartPrice = '.cart_price p';
     cartQuantity = '.cart_quantity button';
-    cartTotalPrice = '.cart_total_price';
+    productTotalPrice = 'tr[id^="product-"] .cart_total_price';
+    grandTotalPrice = 'tr:last-child .cart_total_price';
     cartProductName = 'a[href*="/product_details/"]';
     checkOutButton = '.check_out';
     registerOrLoginLink = 'p a[href="/login"]';
@@ -36,26 +37,24 @@ export default class CartPage {
     }
 
     verifyIndividualProductTotal(productPrices) {
-        cy.get(this.cartTotalPrice).should('have.length', 2).each(($totalPrice, index) => {
+        cy.get(this.productTotalPrice).should('have.length', 2).each(($totalPrice, index) => {
             cy.wrap($totalPrice).invoke('text').then((cartPrice) => {
                 expect(cartPrice).to.equal(productPrices[index]);
             });
         })
     }
 
-    verifyGrandTotal() {
-        const productTotalPrices = [];
-        cy.get(this.cartTotalPrice).each(($price) => {
-            cy.wrap($price).invoke('text').then((prices) => {
-                productTotalPrices.push(Number(prices.replace('Rs. ', '').trim()));
-            });
-        });
+    verifyGrandTotal(productPrices) {
+        const expectedGrandTotal =
+            Number(productPrices[0].replace('Rs. ', '')) +
+            Number(productPrices[1].replace('Rs. ', ''));
 
-        cy.then(() => {
-            expect(productTotalPrices).to.have.length(3);
-            expect(productTotalPrices[2]).to.equal(productTotalPrices[0] + productTotalPrices[1]
-            );
-        });
+        cy.get(this.grandTotalPrice)
+            .invoke('text')
+            .then((grandTotal) => {
+                expect(Number(grandTotal.replace('Rs. ', '')))
+                    .to.equal(expectedGrandTotal);
+            });
     }
 
     clickCheckoutButton() {
@@ -66,7 +65,7 @@ export default class CartPage {
         cy.get(this.registerOrLoginLink).click();
     }
 
-    enterMessageInCommentBox(message){
+    enterMessageInCommentBox(message) {
         cy.get(this.commentBoxInCart).type(message);
     }
 }
