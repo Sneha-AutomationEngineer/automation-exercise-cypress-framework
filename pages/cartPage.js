@@ -4,6 +4,10 @@ export default class CartPage {
     cartPrice = '.cart_price p';
     cartQuantity = '.cart_quantity button';
     cartTotalPrice = '.cart_total_price';
+    cartProductName = 'a[href*="/product_details/"]';
+    checkOutButton = '.check_out';
+    registerOrLoginLink = 'p a[href="/login"]';
+    commentBoxInCart = 'textarea[name="message"]';
 
     verifyProductsInCart() {
         cy.get(this.numberOfProducts).should('have.length', 2);
@@ -17,17 +21,52 @@ export default class CartPage {
         })
     }
 
+    verifyProductName(productNames) {
+        cy.get(this.cartProductName).should('have.length', 2).each(($name, index) => {
+            cy.wrap($name).invoke('text').then((productName) => {
+                expect(productName).to.equal(productNames[index]);
+            });
+        })
+    }
+
     verifyProductQuantity(expectedQuantity) {
         cy.get(this.cartQuantity).each(($quantity) => {
             cy.wrap($quantity).should('be.visible').should('have.text', expectedQuantity);
         })
     }
 
-    verifyTotalPriceOfProduct(productPrices) {
-    cy.get(this.cartTotalPrice).should('have.length', 2).each(($totalPrice, index) => {
+    verifyIndividualProductTotal(productPrices) {
+        cy.get(this.cartTotalPrice).should('have.length', 2).each(($totalPrice, index) => {
             cy.wrap($totalPrice).invoke('text').then((cartPrice) => {
                 expect(cartPrice).to.equal(productPrices[index]);
             });
         })
+    }
+
+    verifyGrandTotal() {
+        const productTotalPrices = [];
+        cy.get(this.cartTotalPrice).each(($price) => {
+            cy.wrap($price).invoke('text').then((prices) => {
+                productTotalPrices.push(Number(prices.replace('Rs. ', '').trim()));
+            });
+        });
+
+        cy.then(() => {
+            expect(productTotalPrices).to.have.length(3);
+            expect(productTotalPrices[2]).to.equal(productTotalPrices[0] + productTotalPrices[1]
+            );
+        });
+    }
+
+    clickCheckoutButton() {
+        cy.get(this.checkOutButton).click();
+    }
+
+    registerOrLoginPopupLink() {
+        cy.get(this.registerOrLoginLink).click();
+    }
+
+    enterMessageInCommentBox(message){
+        cy.get(this.commentBoxInCart).type(message);
     }
 }

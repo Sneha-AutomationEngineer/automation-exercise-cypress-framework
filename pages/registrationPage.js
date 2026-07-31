@@ -51,17 +51,17 @@ export default class RegistrationPage {
         cy.get(this.offersCheckbox).check().should('be.checked');
     }
 
-    enterAddressInformation(user, lastName, company, address1, address2, country, state, city, zipcode, mobilenumber) {
-        cy.get(this.firstNameTextBox).type(user);
-        cy.get(this.lastNameTextBox).type(lastName);
-        cy.get(this.companyTextBox).type(company);
-        cy.get(this.address1TextBox).type(address1);
-        cy.get(this.address2TextBox).type(address2);
-        cy.get(this.countryDropdown).select(country);
-        cy.get(this.stateTextBox).type(state);
-        cy.get(this.cityTextBox).type(city);
-        cy.get(this.zipcodeTextBox).type(zipcode);
-        cy.get(this.mobileNumberTextBox).type(mobilenumber);
+    enterAddressInformation(firstName, registrationData) {
+        cy.get(this.firstNameTextBox).type(firstName);
+        cy.get(this.lastNameTextBox).type(registrationData.lastName);
+        cy.get(this.companyTextBox).type(registrationData.company);
+        cy.get(this.address1TextBox).type(registrationData.address1);
+        cy.get(this.address2TextBox).type(registrationData.address2);
+        cy.get(this.countryDropdown).select(registrationData.country);
+        cy.get(this.stateTextBox).type(registrationData.state);
+        cy.get(this.cityTextBox).type(registrationData.city);
+        cy.get(this.zipcodeTextBox).type(registrationData.zipcode);
+        cy.get(this.mobileNumberTextBox).type(registrationData.mobilenumber);
     }
 
     clickCreateAccount() {
@@ -80,5 +80,8 @@ export default class RegistrationPage {
 
     verifyExistingEmailErrorMessage() {
         cy.contains(this.existingEmailErrorMessage).should('be.visible');
+    }
+    clickContinueButtonAfterRegistration(continueTextAfterRegistartion){
+        cy.contains(continueTextAfterRegistartion).click();
     }
 }

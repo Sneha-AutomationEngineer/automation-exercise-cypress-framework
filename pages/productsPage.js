@@ -1,4 +1,4 @@
-export default class ProductPage{
+export default class ProductPage {
 
     productsPageHeader = 'h2.title.text-center';
     products = '.features_items';
@@ -11,58 +11,62 @@ export default class ProductPage{
     searchIconButton = '#submit_search';
     searchedProductDetail = '.productinfo p';
     viewCartLinkInPopup = 'a[href="/view_cart"] u';
-    addCartButton =  '.productinfo .add-to-cart';
+    addCartButton = '.productinfo .add-to-cart';
     priceTag = '.productinfo h2';
     viewCartButton = 'a[href*="/product_details"]';
     quantityButton = '#quantity';
     addCartInProductDeatilPage = '.cart';
 
-    verifyProductsPageDisplayed(productPageHeaderText){
+    verifyProductsPageDisplayed(productPageHeaderText) {
         cy.get(this.productsPageHeader).should('have.text', productPageHeaderText);
     }
 
-    verifyProductsListDisplayed(){
+    verifyProductsListDisplayed() {
         cy.get(this.products).should('be.visible');
         cy.get(this.productCards).should('have.length.greaterThan', 0);
     }
 
-    openFirstProductDetails(viewProductText){
+    openFirstProductDetails(viewProductText) {
         cy.get(this.productCards).first().find('a').contains(viewProductText).click();
     }
 
-    verifyProductDetailsDisplayed(){
+    verifyProductDetailsDisplayed() {
         cy.get(this.productInformation).within(() => {
-        cy.get(this.productName).should('be.visible').invoke('text').should('not.be.empty');;
-        cy.contains(this.productInformationText, 'Category').should('be.visible');
-        cy.get(this.productPrice).should('be.visible').invoke('text').should('not.be.empty');;
-        cy.contains(this.productInformationText, 'Availability').should('be.visible');
-        cy.contains(this.productInformationText, 'Condition').should('be.visible');  
-        cy.contains(this.productInformationText, 'Brand').should('be.visible');
+            cy.get(this.productName).should('be.visible').invoke('text').should('not.be.empty');;
+            cy.contains(this.productInformationText, 'Category').should('be.visible');
+            cy.get(this.productPrice).should('be.visible').invoke('text').should('not.be.empty');;
+            cy.contains(this.productInformationText, 'Availability').should('be.visible');
+            cy.contains(this.productInformationText, 'Condition').should('be.visible');
+            cy.contains(this.productInformationText, 'Brand').should('be.visible');
         })
     }
 
-    searchProduct(productName){
+    searchProduct(productName) {
         cy.get(this.searchBar).type(productName);
         cy.get(this.searchIconButton).click();
     }
 
-    verifySearchedProductDisplayed(productsPageHeader){
+    verifySearchedProductDisplayed(productsPageHeader) {
         cy.get(this.productsPageHeader).should('contain.text', productsPageHeader);
     }
 
-    verifySearchedProduct(productName){
+    verifySearchedProduct(productName) {
         cy.get(this.searchedProductDetail).should('contain.text', productName);
     }
 
-    captureAndAddFirstTwoProducts(continueShopping){
+    captureAndAddFirstTwoProducts(continueShopping) {
         const productPrices = [];
+        const productNames = [];
         cy.get(this.productCards).each(($product, index) => {
             if (index < 2) {
                 cy.wrap($product).within(() => {
                     cy.get(this.priceTag).invoke('text').then((price) => {
                         productPrices.push(price);
-                        cy.get(this.addCartButton).click();
-                    })
+                    });
+                    cy.get('.productinfo p').invoke('text').then((productName) => {
+                        productNames.push(productName);
+                    });
+                    cy.get(this.addCartButton).click();
                 })
             }
             if (index === 0) {
@@ -72,26 +76,29 @@ export default class ProductPage{
                 cy.get(this.viewCartLinkInPopup).click();
             }
         })
-        return cy.then(()=>{
-            return productPrices;
+        return cy.then(() => {
+            return {
+                productPrices,
+                productNames
+            }
         })
     }
 
-    openFirstProductDetails(){
-        cy.get(this.productCards).first().within(()=>{
+    openFirstProductDetails() {
+        cy.get(this.productCards).first().within(() => {
             cy.get(this.viewCartButton).click();
         })
     }
 
-    editProductQuantity(quantityOfProduct){
+    editProductQuantity(quantityOfProduct) {
         cy.get(this.quantityButton).clear().type(quantityOfProduct);
     }
 
-    clickAddToCartButton(){
+    clickAddToCartButton() {
         cy.get(this.addCartInProductDeatilPage).click();
     }
 
-    clickViewCartLinkInPopup(){
+    clickViewCartLinkInPopup() {
         cy.get(this.viewCartLinkInPopup).click();
     }
 }

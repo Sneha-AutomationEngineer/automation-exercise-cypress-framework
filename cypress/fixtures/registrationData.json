@@ -11,5 +11,6 @@
     "mobilenumber": "124567890",
     "birthDay": "28",
     "birthMonth": "3",
-    "birthYear": "2000"
+    "birthYear": "2000",
+    "continueTextAfterRegistartion": "Continue"
 }
