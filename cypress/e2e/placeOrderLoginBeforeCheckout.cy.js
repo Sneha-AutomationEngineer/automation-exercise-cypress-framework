@@ -67,7 +67,7 @@ describe('Place Order: Login before Checkout', function () {
             homePage.openCartPage();
             cartPage.verifyProductsInCart();
             cartPage.clickCheckoutButton();
-            checkOutPage.verifyAddresses(loginData, existingUserData);
+            checkOutPage.verifyAddresses(existingUserData);
             cartPage.verifyProductPrice(productPrices);
             cartPage.verifyProductName(productNames);
             cartPage.verifyProductQuantity(cartData.defaultQuantity);

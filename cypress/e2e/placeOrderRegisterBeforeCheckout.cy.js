@@ -79,7 +79,7 @@ describe('Place product and checkout', function () {
             homePage.openCartPage();
             cartPage.verifyProductsInCart();
             cartPage.clickCheckoutButton();
-            checkOutPage.verifyAddresses(loginData, registrationData);
+            checkOutPage.verifyAddresses(registrationData);
             cartPage.verifyProductPrice(productPrices);
             cartPage.verifyProductName(productNames);
             cartPage.verifyProductQuantity(cartData.defaultQuantity);
