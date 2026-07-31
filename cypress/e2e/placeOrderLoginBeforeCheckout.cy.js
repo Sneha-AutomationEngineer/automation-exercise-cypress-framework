@@ -2,17 +2,14 @@ import CartPage from '../../pages/cartPage';
 import CheckOutPage from '../../pages/checkOutPage';
 import HomePage from '../../pages/homePage';
 import LoginPage from '../../pages/loginPage';
-import RegistrationPage from '../../pages/registrationPage';
 import ProductPage from '../../pages/productsPage';
 import PaymentPage from '../../pages/paymentPage';
 
-describe('Place product and checkout', function () {
+describe('Place Order: Login before Checkout', function () {
 
     let homePage;
     let cartPage;
     let loginPage;
-    let registrationPage;
-    let randomEmail;
     let checkOutPage;
     let productPage;
     let productsData;
@@ -21,16 +18,12 @@ describe('Place product and checkout', function () {
     let paymentPage;
     let paymentsData;
     let loginData;
-    let registrationData;
-    
+    let existingUserData;
+
 
     before(function () {
         cy.fixture('loginData').then((testData) => {
             loginData = testData;
-        })
-
-        cy.fixture('registrationData').then((testData) => {
-            registrationData = testData;
         })
 
         cy.fixture('cartData').then((testData) => {
@@ -45,41 +38,36 @@ describe('Place product and checkout', function () {
             paymentsData = testData;
         })
 
+        cy.fixture('existingUserData').then((testData) => {
+            existingUserData = testData;
+        })
+
         cy.fixture('homePageData').then((testData) => {
             homePageData = testData;
-        })
+        });
     })
 
     beforeEach(function () {
         cy.visit('/');
         homePage.verifyHomePageDisplayed();
-        randomEmail = `sneha${Date.now()}@gmail.com`;
     })
 
     homePage = new HomePage();
     cartPage = new CartPage();
     loginPage = new LoginPage();
-    registrationPage = new RegistrationPage();
     checkOutPage = new CheckOutPage();
     productPage = new ProductPage();
     paymentPage = new PaymentPage();
 
-    it('Should place an order after registering a new user', function () {
+    it('should place an order after login and complete checkout successfully', function () {
         homePage.openLoginPage();
-        loginPage.verifySignUpPage();
-        registrationPage.enterSignupDetails(loginData.user, randomEmail);
-        registrationPage.verifyPreFilledInformation(loginData.user, randomEmail);
-        registrationPage.enterAccountInformation(registrationData.password, registrationData.birthDay, registrationData.birthMonth, registrationData.birthYear);
-        registrationPage.enterAddressInformation(loginData.user, registrationData)
-        registrationPage.clickCreateAccount();
-        registrationPage.verifyAccountCreated();
-        registrationPage.clickContinueButtonAfterRegistration(registrationData.continueTextAfterRegistartion);
+        loginPage.login(loginData.username, loginData.password);
         homePage.verifyLoggedInUser(loginData.user);
         productPage.captureAndAddFirstTwoProducts(productsData.continueShopping).then(({ productPrices, productNames }) => {
             homePage.openCartPage();
             cartPage.verifyProductsInCart();
             cartPage.clickCheckoutButton();
-            checkOutPage.verifyAddresses(registrationData);
+            checkOutPage.verifyAddresses(existingUserData);
             cartPage.verifyProductPrice(productPrices);
             cartPage.verifyProductName(productNames);
             cartPage.verifyProductQuantity(cartData.defaultQuantity);

@@ -21,10 +21,10 @@ describe('Product Page', function(){
     homePage = new HomePage();
     productPage = new ProductPage();
 
-    it('should display all products and product details successfully', function () {
+    it('should display the products page and product details successfully', function () {
         homePage.openProductsPage();
         productPage.verifyProductsPageDisplayed(productsData.productPageHeaderText);
-        productPage.verifyAllProductsVisible();
+        productPage.verifyProductsListDisplayed();
         productPage.clickFirstViewProduct(productsData.viewProductText); 
         productPage.verifyProductDetailsDisplayed();
     })
