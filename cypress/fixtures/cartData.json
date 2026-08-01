@@ -1,5 +1,6 @@
 {
     "quantityOfProduct": "4",
     "defaultQuantity": "1",
-    "message": "Please deliver the order as soon as possible."
+    "message": "Please deliver the order as soon as possible.",
+    "productName": "Men Tshirt"
 }

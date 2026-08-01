@@ -9,6 +9,8 @@ export default class CartPage {
     checkOutButton = '.check_out';
     registerOrLoginLink = 'p a[href="/login"]';
     commentBoxInCart = 'textarea[name="message"]';
+    tableRow = 'tbody tr';
+    removeProduct = '.cart_quantity_delete';
 
     verifyProductsInCart() {
         cy.get(this.numberOfProducts).should('have.length', 2);
@@ -67,5 +69,13 @@ export default class CartPage {
 
     enterMessageInCommentBox(message) {
         cy.get(this.commentBoxInCart).type(message);
+    }
+
+    removeProductFromCart(productName) {
+        cy.contains(this.tableRow, productName).find(this.removeProduct).click();
+    }
+
+    verifyProductRemoved(productName){
+        cy.contains(this.cartProductName, productName).should('not.exist');
     }
 }
