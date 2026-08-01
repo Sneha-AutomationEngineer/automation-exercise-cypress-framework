@@ -81,5 +81,4 @@ export default class HomePage {
             cy.contains(this.categoryHeader, data.expectedHeader).should('be.visible');
         })
     }
-
 }

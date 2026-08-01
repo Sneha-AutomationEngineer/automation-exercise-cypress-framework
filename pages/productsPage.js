@@ -16,6 +16,9 @@ export default class ProductPage {
     viewCartButton = 'a[href*="/product_details"]';
     quantityButton = '#quantity';
     addCartInProductDeatilPage = '.cart';
+    brandLink = 'div.brands_products';
+    brandSection = 'Brands';
+    brandHeader = '.title';
 
     verifyProductsPageDisplayed(productPageHeaderText) {
         cy.get(this.productsPageHeader).should('have.text', productPageHeaderText);
@@ -100,5 +103,17 @@ export default class ProductPage {
 
     clickViewCartLinkInPopup() {
         cy.get(this.viewCartLinkInPopup).click();
+    }
+
+    verifyBrandNavigation() {
+        const brandData = [{ brandName: 'H&M', expectedHeader: 'Brand - H&M Products' }, {
+            brandName: 'Babyhug', expectedHeader: 'Brand - Babyhug Products'
+        }]
+
+        brandData.forEach((data) => {
+            cy.get(this.brandLink).should('be.visible').and('contain.text', this.brandSection);
+            cy.get(`a[href*="/brand_products/${data.brandName}"]`).click();
+            cy.contains(this.brandHeader, data.expectedHeader).should('be.visible');
+        })
     }
 }
