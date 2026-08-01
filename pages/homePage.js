@@ -11,6 +11,10 @@ export default class HomePage {
     subscriptionSuccessMessage = '.alert-success';
     shoppingCartLink = 'li a[href="/view_cart"]';
     deleteAccountLink = 'a[href="/delete_account"]';
+    leftSidebar = '.left-sidebar';
+    categoryLink = 'a[href*="/category_products/"]';
+    categoryHeader = 'h2.title.text-center';
+    categorySection = 'Category';
 
     openLoginPage() {
         cy.get(this.loginLink).click();
@@ -49,20 +53,33 @@ export default class HomePage {
         cy.get(this.subscriptionArrowButton).click();
     }
 
-    verifySubscriptionSuccessMessage(subscriptionSuccessMessage){
+    verifySubscriptionSuccessMessage(subscriptionSuccessMessage) {
         cy.get(this.subscriptionSuccessMessage).should('have.text', subscriptionSuccessMessage);
     }
 
-    openCartPage(){
+    openCartPage() {
         cy.get(this.shoppingCartLink).click();
     }
 
-    deleteAccount(){
+    deleteAccount() {
         cy.get(this.deleteAccountLink).click();
     }
-    
-    verifyAccountDeletedAndClickContinue(accountDeletedMessage, continueAfterAccountDelete){
+
+    verifyAccountDeletedAndClickContinue(accountDeletedMessage, continueAfterAccountDelete) {
         cy.contains(accountDeletedMessage).should('be.visible');
         cy.contains(continueAfterAccountDelete).click();
-    }     
+    }
+
+    verifyCategoryNavigation() {
+        const categoryData = [{ category: 'Women', subCategory: 'Dress', expectedHeader: 'Women - Dress Products' },
+        { category: 'Men', subCategory: 'Tshirts', expectedHeader: 'Men - Tshirts Products' }
+        ]
+        cy.get(this.leftSidebar).should('contain.text', this.categorySection);
+        categoryData.forEach((data) => {
+            cy.get(`a[href="#${data.category}"]`).click();
+            cy.contains(this.categoryLink, data.subCategory).click();
+            cy.contains(this.categoryHeader, data.expectedHeader).should('be.visible');
+        })
+    }
+
 }
