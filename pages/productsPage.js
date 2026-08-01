@@ -111,7 +111,7 @@ export default class ProductPage {
         }]
 
         brandData.forEach((data) => {
-            cy.get(this.brandLink).should('contain.text', this.brandSection);
+            cy.get(this.brandLink).should('be.visible').and('contain.text', this.brandSection);
             cy.get(`a[href*="/brand_products/${data.brandName}"]`).click();
             cy.contains(this.brandHeader, data.expectedHeader).should('be.visible');
         })
