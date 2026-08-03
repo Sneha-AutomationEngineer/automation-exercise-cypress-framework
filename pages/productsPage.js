@@ -13,12 +13,18 @@ export default class ProductPage {
     viewCartLinkInPopup = 'a[href="/view_cart"] u';
     addCartButton = '.productinfo .add-to-cart';
     priceTag = '.productinfo h2';
-    viewCartButton = 'a[href*="/product_details"]';
+    viewProductButton = 'a[href*="/product_details"]';
     quantityButton = '#quantity';
     addCartInProductDeatilPage = '.cart';
     brandLink = 'div.brands_products';
     brandSection = 'Brands';
     brandHeader = '.title';
+    reviewHeader = 'a[href*="#reviews"]';
+    reviewTextBox = 'textarea[name="review"]';
+    emailTextBoxInReviewSection = '#email';
+    nameTextBoxInReviewSection = '#name';
+    submitReviewButton = '#button-review';
+    successMessageAfterReview = '#review-section .alert-success';
 
     verifyProductsPageDisplayed(productPageHeaderText) {
         cy.get(this.productsPageHeader).should('have.text', productPageHeaderText);
@@ -89,7 +95,7 @@ export default class ProductPage {
 
     openFirstProductDetails() {
         cy.get(this.productCards).first().within(() => {
-            cy.get(this.viewCartButton).click();
+            cy.get(this.viewProductButton).click();
         })
     }
 
@@ -140,5 +146,35 @@ export default class ProductPage {
                 }
             })
         })
+    }
+
+    verifyReviewText(reviewHeaderText){
+        cy.get(this.reviewHeader).should('have.text', reviewHeaderText);
+    }
+
+    enterNameForReview(user){
+        cy.get(this.nameTextBoxInReviewSection).type(user)
+    }
+
+    enterEmailIdForReview(emailId){
+        cy.get(this.emailTextBoxInReviewSection).type(emailId);
+    }
+
+    enterReviewForProduct(reviewComment){
+        cy.get(this.reviewTextBox).type(reviewComment)
+    }
+
+    submitReview(){
+        cy.get(this.submitReviewButton).click();
+    }
+
+    verifySuccessMessageForReview(successMessageAfterReviewSubmit){
+        cy.get(this.successMessageAfterReview).should('be.visible').should('contain.text', successMessageAfterReviewSubmit)
+    }
+
+    enterReviewDetails(user, username, reviewComment){
+        this.enterNameForReview(user);
+        this.enterEmailIdForReview(username);
+        this.enterReviewForProduct(reviewComment);
     }
 }

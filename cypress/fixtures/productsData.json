@@ -10,5 +10,8 @@
         "stylishDress": "Stylish Dress",
         "top": "Top",
         "shirt": "Shirt"
-    }
+    },
+    "reviewHeaderText": "Write Your Review",
+    "reviewComment": "Colour and fabric of product is too good",
+    "successMessageAfterReviewSubmit": "Thank you for your review."
 }
