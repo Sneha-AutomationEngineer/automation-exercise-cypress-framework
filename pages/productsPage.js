@@ -116,4 +116,29 @@ export default class ProductPage {
             cy.contains(this.brandHeader, data.expectedHeader).should('be.visible');
         })
     }
+
+    captureAndAddSearchedProducts(continueShopping) {
+        const productPrices = [];
+        return cy.get(this.productCards).then(($products) => {
+            const totalProducts = $products.length;
+            cy.wrap($products).each(($product, index) => {
+                cy.wrap($product).find(this.priceTag).invoke('text').then((price) => {
+                    productPrices.push(price);
+                })
+
+                cy.wrap($product).find(this.addCartButton).click();
+
+                if (index < totalProducts - 1) {
+                    cy.contains(continueShopping).click();
+                } else {
+                    cy.get(this.viewCartLinkInPopup).click();
+                }
+            })
+            return cy.then(() => {
+                return {
+                    productPrices, totalProducts
+                }
+            })
+        })
+    }
 }

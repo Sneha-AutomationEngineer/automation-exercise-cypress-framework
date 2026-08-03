@@ -3,5 +3,12 @@
     "viewProductText": "View Product",
     "productName": "Stylish Dress",
     "searchedProductsHeader": "Searched Products",
-    "continueShopping": "Continue Shopping"
+    "continueShopping": "Continue Shopping",
+    "searchProducts": {
+        "jeans": "Jeans",
+        "dress": "Dress",
+        "stylishDress": "Stylish Dress",
+        "top": "Top",
+        "shirt": "Shirt"
+    }
 }
