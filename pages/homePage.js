@@ -1,6 +1,6 @@
 export default class HomePage {
 
-    loginLink = '[href="/login"]';
+    loginLink = 'li a[href="/login"]';
     logoutLink = '[href="/logout"]';
     homePageVerify = '#slider-carousel';
     testCasePageLink = ' li a[href="/test_cases"]';

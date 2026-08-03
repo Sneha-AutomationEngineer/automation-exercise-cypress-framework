@@ -17,11 +17,11 @@ export default class CartPage {
     }
 
     verifyProductPrice(productPrices) {
-        cy.get(this.cartPrice).should('have.length', 2).each(($price, index) => {
+        cy.get(this.cartPrice).should('have.length', productPrices.length).each(($price, index) => {
             cy.wrap($price).invoke('text').then((cartPrice) => {
                 expect(cartPrice).to.equal(productPrices[index]);
             });
-        })
+        });
     }
 
     verifyProductName(productNames) {
@@ -39,7 +39,7 @@ export default class CartPage {
     }
 
     verifyIndividualProductTotal(productPrices) {
-        cy.get(this.productTotalPrice).should('have.length', 2).each(($totalPrice, index) => {
+        cy.get(this.productTotalPrice).should('have.length', productPrices.length).each(($totalPrice, index) => {
             cy.wrap($totalPrice).invoke('text').then((cartPrice) => {
                 expect(cartPrice).to.equal(productPrices[index]);
             });
@@ -47,16 +47,13 @@ export default class CartPage {
     }
 
     verifyGrandTotal(productPrices) {
-        const expectedGrandTotal =
-            Number(productPrices[0].replace('Rs. ', '')) +
-            Number(productPrices[1].replace('Rs. ', ''));
-
-        cy.get(this.grandTotalPrice)
-            .invoke('text')
-            .then((grandTotal) => {
-                expect(Number(grandTotal.replace('Rs. ', '')))
-                    .to.equal(expectedGrandTotal);
-            });
+        const expectedGrandTotal = productPrices.reduce((total, price) => {
+            return total + Number(price.replace('Rs. ', '').trim());
+        }, 0);
+        cy.get(this.grandTotalPrice).invoke('text').then((grandTotal) => {
+            expect(Number(grandTotal.replace('Rs. ', '')
+                .trim())).to.equal(expectedGrandTotal);
+        });
     }
 
     clickCheckoutButton() {
@@ -75,7 +72,11 @@ export default class CartPage {
         cy.contains(this.tableRow, productName).find(this.removeProduct).click();
     }
 
-    verifyProductRemoved(productName){
+    verifyProductRemoved(productName) {
         cy.contains(this.cartProductName, productName).should('not.exist');
+    }
+
+    verifyProductsCount(expectedCount) {
+        cy.get(this.tableRow).should('have.length', expectedCount)
     }
 }

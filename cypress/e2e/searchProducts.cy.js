@@ -23,7 +23,7 @@ describe('Search Product', function(){
     it('Product should be visible after search', function(){
         homePage.openProductsPage();
         productsPage.verifyProductsPageDisplayed(productsData.productPageHeaderText);
-        productsPage.searchProduct(productsData.productName);
+        productsPage.searchProduct(productsData.searchProducts.stylishDress);
         productsPage.verifySearchedProductDisplayed(productsData.searchedProductsHeader);
         productsPage.verifyProductsListDisplayed();
         productsPage.verifySearchedProduct(productsData.productName);
