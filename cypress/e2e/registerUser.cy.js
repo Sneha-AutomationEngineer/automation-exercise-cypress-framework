@@ -26,18 +26,18 @@ describe('New User Registration', function () {
 
     })
 
-    beforeEach(function () {
+    beforeEach(() => {
         cy.visit('/');
-        homePage.openLoginPage();
-        randomEmail = `sneha${Date.now()}@gmail.com`;
-    })
+        homePage.verifyHomePageDisplayed();
+        randomEmail = `sneha${Date.now()}${Cypress._.random(1000, 9999)}@gmail.com`;
+    });
 
     it('New User should be able to register successfully', function () {
         loginPage.verifySignUpPage();
         registrationPage.enterSignupDetails(loginData.user, randomEmail);
         registrationPage.verifyPreFilledInformation(loginData.user, randomEmail);
-        registrationPage.enterAccountInformation(registrationData.password, registrationData.birthDay, registrationData.birthMonth, registrationData.birthYear);
-        registrationPage.enterAddressInformation(loginData.user,registrationData);
+        registrationPage.enterAccountInformation(registrationData);
+        registrationPage.enterAddressInformation(registrationData);
         registrationPage.clickCreateAccount();
         registrationPage.verifyAccountCreated();
     })

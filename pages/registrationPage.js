@@ -43,16 +43,16 @@ export default class RegistrationPage {
         cy.get(this.birthYearDropdown).select(birthYear);
     }
 
-    enterAccountInformation(password, birthDay, birthMonth, birthYear) {
+    enterAccountInformation(registrationData) {
         cy.get(this.genderSelectionRadio).check().should('be.checked');
-        cy.get(this.registrationPasswordTextbox).type(password);
-        this.enterBirthDate(birthDay, birthMonth, birthYear);
+        cy.get(this.registrationPasswordTextbox).type(registrationData.password);
+        this.enterBirthDate(registrationData.birthDay,registrationData.birthMonth,registrationData.birthYear);
         cy.get(this.newsletterCheckbox).check().should('be.checked');
         cy.get(this.offersCheckbox).check().should('be.checked');
     }
 
-    enterAddressInformation(firstName, registrationData) {
-        cy.get(this.firstNameTextBox).type(firstName);
+    enterAddressInformation(registrationData) {
+        cy.get(this.firstNameTextBox).type(registrationData.firstName);
         cy.get(this.lastNameTextBox).type(registrationData.lastName);
         cy.get(this.companyTextBox).type(registrationData.company);
         cy.get(this.address1TextBox).type(registrationData.address1);
@@ -81,7 +81,7 @@ export default class RegistrationPage {
     verifyExistingEmailErrorMessage() {
         cy.contains(this.existingEmailErrorMessage).should('be.visible');
     }
-    clickContinueButtonAfterRegistration(continueTextAfterRegistartion){
+    clickContinueButtonAfterRegistration(continueTextAfterRegistartion) {
         cy.contains(continueTextAfterRegistartion).click();
     }
 }
