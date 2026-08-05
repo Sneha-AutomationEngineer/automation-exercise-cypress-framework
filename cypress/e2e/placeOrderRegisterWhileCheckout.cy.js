@@ -73,15 +73,15 @@ describe('Place product and checkout', function () {
             loginPage.verifySignUpPage();
             registrationPage.enterSignupDetails(loginData.user, randomEmail);
             registrationPage.verifyPreFilledInformation(loginData.user, randomEmail);
-            registrationPage.enterAccountInformation(registrationData.password, registrationData.birthDay, registrationData.birthMonth, registrationData.birthYear);
-            registrationPage.enterAddressInformation(loginData.user, registrationData)
+            registrationPage.enterAccountInformation(registrationData);
+            registrationPage.enterAddressInformation(registrationData);
             registrationPage.clickCreateAccount();
             registrationPage.verifyAccountCreated();
             registrationPage.clickContinueButtonAfterRegistration(registrationData.continueTextAfterRegistartion);
             homePage.verifyLoggedInUser(loginData.user);
             homePage.openCartPage();
             cartPage.clickCheckoutButton();
-            checkOutPage.verifyAddresses(loginData, registrationData);
+            checkOutPage.verifyAddresses(registrationData);
             cartPage.verifyProductPrice(productPrices);
             cartPage.verifyProductName(productNames);
             cartPage.verifyProductQuantity(cartData.defaultQuantity);

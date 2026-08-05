@@ -36,8 +36,8 @@ describe('New User Registration', function () {
         loginPage.verifySignUpPage();
         registrationPage.enterSignupDetails(loginData.user, randomEmail);
         registrationPage.verifyPreFilledInformation(loginData.user, randomEmail);
-        registrationPage.enterAccountInformation(registrationData.password, registrationData.birthDay, registrationData.birthMonth, registrationData.birthYear);
-        registrationPage.enterAddressInformation(loginData.user,registrationData);
+        registrationPage.enterAccountInformation(registrationData);
+        registrationPage.enterAddressInformation(registrationData);
         registrationPage.clickCreateAccount();
         registrationPage.verifyAccountCreated();
     })

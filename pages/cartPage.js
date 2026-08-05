@@ -11,8 +11,13 @@ export default class CartPage {
     commentBoxInCart = 'textarea[name="message"]';
     tableRow = 'tbody tr';
     removeProduct = '.cart_quantity_delete';
+    cartPageBreadCrumb = '.breadcrumb .active'
 
-    verifyProductsInCart() {
+    verifyCartPageDisplayed() {
+        cy.get(this.cartPageBreadCrumb).should('be.visible');
+    }
+
+    verifyProductsInCart() { 
         cy.get(this.numberOfProducts).should('have.length', 2);
     }
 

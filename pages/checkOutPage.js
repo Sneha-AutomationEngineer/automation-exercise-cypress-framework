@@ -15,7 +15,7 @@ export default class CheckOutPage {
         addresses.forEach((address) => {
             cy.get(address.selector).within(() => {
                 cy.get(this.addressBoxHeader).should('have.text', address.heading);
-                cy.get(this.addressBoxFirstNameLastName).should('contain.text', userData.firstName).should('contain.text', userData.lastName);;
+                cy.get(this.addressBoxFirstNameLastName).should('contain.text', userData.firstName).should('contain.text', userData.lastName);
                 cy.get(this.address1Address2).should('contain.text', userData.address1).should('contain.text', userData.address2)
                 cy.get(this.addressCityStatePostcode).should('contain.text', userData.city).should('contain.text', userData.state).should('contain.text', userData.zipcode);
                 cy.get(this.addressCountryName).should('contain.text', userData.country)
