@@ -25,7 +25,7 @@ export default class CartPage {
     }
 
     verifyProductName(productNames) {
-        cy.get(this.cartProductName).should('have.length', 2).each(($name, index) => {
+        cy.get(this.cartProductName).should('have.length', productNames.length).each(($name, index) => {
             cy.wrap($name).invoke('text').then((productName) => {
                 expect(productName).to.equal(productNames[index]);
             });

@@ -3,5 +3,6 @@
     "subscriptionSuccessMessage" : "You have been successfully subscribed!",
     "scrollBottom": "bottom",
     "accountDeletedMessage": "Account Deleted!",
-    "continueAfterAccountDelete": "Continue"
+    "continueAfterAccountDelete": "Continue",
+    "recommendedItemsHeader": "recommended items"
 }
