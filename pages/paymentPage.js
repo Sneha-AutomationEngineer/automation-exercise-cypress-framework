@@ -1,4 +1,4 @@
-export default class PaymentPage{
+export default class PaymentPage {
 
     paymentHeaderText = '.heading';
     nameOnCardTextBox = '[name="name_on_card"]';
@@ -7,12 +7,14 @@ export default class PaymentPage{
     cardExpiryMonthTextBox = '.card-expiry-month';
     cardExpiryYearTextBox = '.card-expiry-year';
     submitButton = '#submit';
+    downloadInvoiceButton = 'a[href*="/download_invoice/"]';
+    continueButtonInCheckoutPage = 'a[data-qa="continue-button"]';
 
-    verifyPaymentPageHeader(paymentHeaderText){
+    verifyPaymentPageHeader(paymentHeaderText) {
         cy.get(this.paymentHeaderText).contains(paymentHeaderText);
     }
-    
-    enterPaymentDetails(nameOnCard, paymentsData){
+
+    enterPaymentDetails(nameOnCard, paymentsData) {
         cy.get(this.nameOnCardTextBox).type(nameOnCard);
         cy.get(this.cardNumberTextBox).type(paymentsData.cardNumber);
         cy.get(this.cardCVCTextBox).type(paymentsData.cardCVC);
@@ -20,11 +22,27 @@ export default class PaymentPage{
         cy.get(this.cardExpiryYearTextBox).type(paymentsData.cardExpiryYear);
     }
 
-    submitPaymentDetails(){
+    submitPaymentDetails() {
         cy.get(this.submitButton).click();
     }
 
-    verifySuccessMessageOfOrder(paymentsData){
+    verifySuccessMessageOfOrder(paymentsData) {
         cy.contains(paymentsData.orderPlacedSuccessMessage).should('be.visible');
+    }
+
+    clickOnDownloadInvoice() {
+        cy.get(this.downloadInvoiceButton).click();
+    }
+
+    clickContinueButton() {
+        cy.get(this.continueButtonInCheckoutPage).click();
+    }
+
+    verifyDownloadedInvoice(fileName) {
+        cy.readFile(`cypress/downloads/${fileName}`).should('exist');
+    }
+
+    deleteDownloadedInvoice(fileName) {
+        cy.task('deleteFile', `cypress/downloads/${fileName}`);
     }
 }
