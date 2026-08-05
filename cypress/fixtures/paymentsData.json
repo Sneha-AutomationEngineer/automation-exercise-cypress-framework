@@ -4,5 +4,6 @@
     "cardCVC": "321",
     "cardExpiryMonth": "02",
     "cardExpiryYear": "2040",
-    "orderPlacedSuccessMessage": "Order Placed!"
+    "orderPlacedSuccessMessage": "Order Placed!",
+    "invoiceFileName": "invoice.txt"
 }

@@ -7,6 +7,8 @@ export default class PaymentPage{
     cardExpiryMonthTextBox = '.card-expiry-month';
     cardExpiryYearTextBox = '.card-expiry-year';
     submitButton = '#submit';
+    downloadInvoiceButton = 'a[href*="/download_invoice/"]';
+    continueButtonInCheckoutPage = 'a[data-qa="continue-button"]';
 
     verifyPaymentPageHeader(paymentHeaderText){
         cy.get(this.paymentHeaderText).contains(paymentHeaderText);
@@ -26,5 +28,17 @@ export default class PaymentPage{
 
     verifySuccessMessageOfOrder(paymentsData){
         cy.contains(paymentsData.orderPlacedSuccessMessage).should('be.visible');
+    }
+
+    clickOnDownloadInvoice() {
+        cy.get(this.downloadInvoiceButton).click();
+    }
+
+    clickContinueButton() {
+        cy.get(this.continueButtonInCheckoutPage).click();
+    }
+
+    verifyDownloadedInvoice(fileName) {
+        cy.readFile(`cypress/downloads/${fileName}`).should('exist');
     }
 }

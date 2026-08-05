@@ -1,13 +1,13 @@
 export default class CheckOutPage {
 
     deliveryAddressBox = '.address.item.box';
-    billingAddressBox ='.address.alternate_item.box';
-    addressBoxHeader ='h3.page-subheading';
+    billingAddressBox = '.address.alternate_item.box';
+    addressBoxHeader = 'h3.page-subheading';
     addressBoxFirstNameLastName = '.address_firstname.address_lastname';
     address1Address2 = '.address_address1.address_address2';
     addressCityStatePostcode = '.address_city.address_state_name.address_postcode';
     addressCountryName = '.address_country_name';
-    addressPhone ='.address_phone';
+    addressPhone = '.address_phone';
 
     verifyAddresses(userData) {
         const addresses = [{ selector: this.deliveryAddressBox, heading: "Your delivery address" },
