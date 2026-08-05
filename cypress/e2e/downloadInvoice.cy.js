@@ -81,7 +81,7 @@ describe('Download Invoice', function () {
             homePage.verifyLoggedInUser(loginData.user);
             homePage.openCartPage();
             cartPage.clickCheckoutButton();
-             checkOutPage.verifyAddresses(registrationData);
+            checkOutPage.verifyAddresses(registrationData);
             cartPage.verifyProductPrice(productPrices);
             cartPage.verifyProductName(productNames);
             cartPage.verifyProductQuantity(cartData.defaultQuantity);
@@ -92,6 +92,7 @@ describe('Download Invoice', function () {
             paymentPage.enterPaymentDetails(loginData.user, paymentsData);
             paymentPage.submitPaymentDetails();
             paymentPage.verifySuccessMessageOfOrder(paymentsData);
+            paymentPage.deleteDownloadedInvoice(paymentsData.invoiceFileName);
             paymentPage.clickOnDownloadInvoice();
             paymentPage.verifyDownloadedInvoice(paymentsData.invoiceFileName);
             paymentPage.clickContinueButton();
