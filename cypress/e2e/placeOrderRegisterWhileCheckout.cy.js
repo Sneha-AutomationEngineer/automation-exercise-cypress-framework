@@ -22,7 +22,7 @@ describe('Place product and checkout', function () {
     let paymentsData;
     let loginData;
     let registrationData;
-    
+
 
     before(function () {
         cy.fixture('loginData').then((testData) => {
@@ -50,11 +50,11 @@ describe('Place product and checkout', function () {
         })
     })
 
-    beforeEach(function () {
+    beforeEach(() => {
         cy.visit('/');
         homePage.verifyHomePageDisplayed();
-        randomEmail = `sneha${Date.now()}@gmail.com`;
-    })
+        randomEmail = `sneha${Date.now()}${Cypress._.random(1000, 9999)}@gmail.com`;
+    });
 
     homePage = new HomePage();
     cartPage = new CartPage();

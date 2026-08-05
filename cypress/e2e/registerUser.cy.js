@@ -26,11 +26,11 @@ describe('New User Registration', function () {
 
     })
 
-    beforeEach(function () {
+    beforeEach(() => {
         cy.visit('/');
-        homePage.openLoginPage();
-        randomEmail = `sneha${Date.now()}@gmail.com`;
-    })
+        homePage.verifyHomePageDisplayed();
+        randomEmail = `sneha${Date.now()}${Cypress._.random(1000, 9999)}@gmail.com`;
+    });
 
     it('New User should be able to register successfully', function () {
         loginPage.verifySignUpPage();

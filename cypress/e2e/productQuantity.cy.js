@@ -24,6 +24,7 @@ describe('Product Quantity', function(){
         cy.visit('/');
         homePage.verifyHomePageDisplayed();
     })
+    
     homePage = new HomePage();
     productsPage = new ProductsPage();
     cartPage = new CartPage();

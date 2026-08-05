@@ -19,11 +19,11 @@ describe('Verify address details in checkout page', function () {
     let registrationData;
     let homePageData;
 
-    beforeEach(function () {
+    beforeEach(() => {
         cy.visit('/');
         homePage.verifyHomePageDisplayed();
-        randomEmail = `sneha${Date.now()}@gmail.com`;
-    })
+        randomEmail = `sneha${Date.now()}${Cypress._.random(1000, 9999)}@gmail.com`;
+    });
 
     before(function () {
         cy.fixture('productsData').then((testData) => {
@@ -67,7 +67,7 @@ describe('Verify address details in checkout page', function () {
             checkOutPage.verifyAddresses(registrationData);
             homePage.deleteAccount();
             homePage.verifyAccountDeletedAndClickContinue(homePageData.accountDeletedMessage,
-homePageData.continueAfterAccountDelete
+                homePageData.continueAfterAccountDelete
             );
         });
     })
