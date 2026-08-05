@@ -15,6 +15,12 @@ export default class HomePage {
     categoryLink = 'a[href*="/category_products/"]';
     categoryHeader = 'h2.title.text-center';
     categorySection = 'Category';
+    recommendedSection = '.recommended_items';
+    recommendedHeader = '.recommended_items .title';
+    recommendedProduct = '.recommended_items .item.active .product-image-wrapper';
+    productName = '.productinfo p';
+    addToCartButton = 'a.add-to-cart';
+    viewCartLinkInPopup = 'a[href="/view_cart"] u';
 
     openLoginPage() {
         cy.get(this.loginLink).click();
@@ -80,5 +86,32 @@ export default class HomePage {
             cy.contains(this.categoryLink, data.subCategory).click();
             cy.contains(this.categoryHeader, data.expectedHeader).should('be.visible');
         })
+    }
+
+    verifyRecommendedItemsHeader(recommendedItemsHeader) {
+        cy.get(this.recommendedHeader).first().should('contain.text', recommendedItemsHeader).should('be.visible');
+    }
+
+    captureAndAddRecommendedProduct() {
+        let productName;
+
+        return cy.get(this.recommendedProduct)
+            .first()
+            .within(() => {
+                cy.get(this.productName).invoke('text').then((name) => {
+                    productName = name;
+                });
+
+                cy.get(this.addToCartButton).click();
+            })
+            .then(() => {
+                cy.get(this.viewCartLinkInPopup).click();
+
+                return cy.then(() => {
+                    return {
+                        productNames: [productName]
+                    }
+                });
+            });
     }
 }
