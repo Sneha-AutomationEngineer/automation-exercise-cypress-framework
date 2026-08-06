@@ -21,6 +21,8 @@ export default class HomePage {
     productName = '.productinfo p';
     addToCartButton = 'a.add-to-cart';
     viewCartLinkInPopup = 'a[href="/view_cart"] u';
+    scrollUpArrow = '#scrollUp';
+    homePageBannerText = '#slider-carousel h2';
 
     openLoginPage() {
         cy.get(this.loginLink).click();
@@ -113,5 +115,14 @@ export default class HomePage {
                     }
                 });
             });
+    }
+
+    clickScrollUpArrow() {
+        cy.get(this.scrollUpArrow).click();
+    }
+
+    verifyHomeBannerPage(homePageBannerText) {
+        cy.contains(this.homePageBannerText, homePageBannerText)
+            .should('be.visible');
     }
 }

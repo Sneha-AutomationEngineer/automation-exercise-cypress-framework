@@ -2,7 +2,9 @@
     "subscriptionHeader" : "Subscription",
     "subscriptionSuccessMessage" : "You have been successfully subscribed!",
     "scrollBottom": "bottom",
+    "scrollTop": "top",
     "accountDeletedMessage": "Account Deleted!",
     "continueAfterAccountDelete": "Continue",
-    "recommendedItemsHeader": "recommended items"
+    "recommendedItemsHeader": "recommended items",
+    "homePageBannerText": "Full-Fledged practice website for Automation Engineers"
 }
