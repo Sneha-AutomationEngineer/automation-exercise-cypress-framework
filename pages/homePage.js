@@ -22,7 +22,7 @@ export default class HomePage {
     addToCartButton = 'a.add-to-cart';
     viewCartLinkInPopup = 'a[href="/view_cart"] u';
     scrollUpArrow = '#scrollUp';
-    homePageBannerText = '#slider-carousel h2';
+    homePageBannerText = '#slider-carousel .item.active h2';
 
     openLoginPage() {
         cy.get(this.loginLink).click();

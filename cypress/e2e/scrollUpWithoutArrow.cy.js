@@ -1,6 +1,6 @@
 import HomePage from '../../pages/homePage';
 
-describe('Scroll up using arrow', function () {
+describe('Scroll up without arrow', function () {
 
     let homePage;
     let homePageData;
@@ -18,7 +18,7 @@ describe('Scroll up using arrow', function () {
 
     homePage = new HomePage();
 
-    it('Should scroll up successfully using arrow', function () {
+    it('Should scroll up successfully without arrow', function () {
         homePage.scrollTo(homePageData.scrollBottom);
         homePage.verifySubscriptionText(homePageData.subscriptionHeader);
         homePage.scrollTo(homePageData.scrollTop);
