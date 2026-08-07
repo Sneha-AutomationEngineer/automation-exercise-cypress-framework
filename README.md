@@ -53,7 +53,8 @@ automation-exercise-cypress-framework
 │   ├── loginPage.js
 │   ├── paymentPage.js
 │   ├── productsPage.js
-│   └── registrationPage.js
+│   ├── registrationPage.js
+│   └── testCasePage.js
 │
 ├── assets
 │   └── test-execution.png
@@ -190,7 +191,7 @@ The complete suite consists of:
 - 28 Automated Test Cases
 - Headless execution using `npx cypress run`
 
-Support for Mochawesome or Allure reporting will be added in future enhancements.
+Support for Mochawesome reporting will be added in future enhancements.
 
 ## Future Enhancements
 

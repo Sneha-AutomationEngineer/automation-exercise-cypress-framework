@@ -85,14 +85,11 @@ export default class CartPage {
         cy.get(this.tableRow).should('have.length', expectedCount)
     }
 
-   clearCartIfNotEmpty() {
+    clearCartIfNotEmpty() {
     cy.get('body').then(($body) => {
-        cy.log('Delete buttons found: ' + $body.find(this.removeProduct).length);
-
         if ($body.find(this.removeProduct).length > 0) {
-            cy.get(this.removeProduct).each(($btn) => {
-                cy.wrap($btn).click();
-            });
+            cy.get(this.removeProduct).first().click();
+            this.clearCartIfNotEmpty();
         }
     });
 }
