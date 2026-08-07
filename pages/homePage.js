@@ -4,7 +4,7 @@ export default class HomePage {
     logoutLink = '[href="/logout"]';
     homePageVerify = '#slider-carousel';
     testCasePageLink = ' li a[href="/test_cases"]';
-    productsPageLink = 'a[href="/products"]';
+    productsPageLink = 'li a[href="/products"]';
     subscriptionHeader = '.single-widget h2';
     subscriptionEmailBox = '#susbscribe_email';
     subscriptionArrowButton = '#subscribe';

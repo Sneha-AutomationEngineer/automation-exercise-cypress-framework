@@ -28,6 +28,8 @@ describe('Search product and verify login', function () {
     })
 
     beforeEach(function () {
+        cy.clearCookies();
+        cy.clearLocalStorage();
         cy.visit('/');
         homePage.verifyHomePageDisplayed();
     })
@@ -38,6 +40,8 @@ describe('Search product and verify login', function () {
     cartPage = new CartPage();
 
     it('Should search product and verify login successfully', function () {
+        homePage.openCartPage();
+        cartPage.clearCartIfNotEmpty();
         homePage.openProductsPage();
         productsPage.verifyProductsPageDisplayed(productsData.productPageHeaderText);
         productsPage.searchProduct(productsData.searchProducts.jeans);

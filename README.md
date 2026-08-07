@@ -1,6 +1,11 @@
+![Cypress](https://img.shields.io/badge/Cypress-14.5.4-brightgreen)
+![JavaScript](https://img.shields.io/badge/JavaScript-ES6-yellow)
+![Mocha](https://img.shields.io/badge/Mocha-Testing-brown)
+![GitHub](https://img.shields.io/badge/GitHub-Repository-blue)
+
 # Cypress Automation Framework
 
-A UI automation framework built using Cypress and JavaScript following the Page Object Model (POM) design pattern.
+> End-to-end UI automation framework for Automation Exercise built using Cypress and JavaScript following the Page Object Model (POM).
 
 ## Overview
 
@@ -27,37 +32,65 @@ The framework is designed to demonstrate practical UI automation skills, clean c
 https://automationexercise.com/
 
 ## Project Structure
+
 The project is organized using a feature-based structure to improve readability and maintainability.
 
 ```text
 automation-exercise-cypress-framework
 │
 ├── cypress
+│   ├── downloads
 │   ├── e2e
 │   ├── fixtures
+│   ├── screenshots
 │   └── support
 │
 ├── pages
-│   ├── HomePage.js
-│   ├── LoginPage.js
-│   ├── RegistrationPage.js
-│   ├── ContactUsPage.js
-│   └── TestCasePage.js
+│   ├── cartPage.js
+│   ├── checkOutPage.js
+│   ├── contactUsPage.js
+│   ├── homePage.js
+│   ├── loginPage.js
+│   ├── paymentPage.js
+│   ├── productsPage.js
+│   └── registrationPage.js
 │
+├── assets
+│   └── test-execution.png
+│
+├── utils
 ├── package.json
 ├── package-lock.json
 ├── cypress.config.js
+├── .gitignore
 └── README.md
 ```
 
-## Features Automated
+## Test Coverage
 
-- User Login
-- User Logout
-- New User Registration
-- Existing User Registration Validation
-- Contact Us Form
-- Test Cases Page Navigation
+The framework automates the following functional areas:
+
+- Home Page
+- User Registration
+- Login & Logout
+- Contact Us
+- Test Cases
+- Products
+- Product Details
+- Search Products
+- Subscription
+- Add to Cart
+- Remove Products from Cart
+- Cart Persistence
+- Product Quantity
+- Recommended Products
+- Brand & Category Navigation
+- Checkout
+- Address Verification
+- Place Order
+- Payment
+- Download Invoice
+- Scroll Up / Scroll Down
 
 ## Framework Design
 
@@ -70,6 +103,25 @@ Key design principles:
 - Separation of business actions and assertions
 - Modular and maintainable test scripts
 - Clear feature-based project organization
+
+## Framework Highlights
+
+- Page Object Model (POM)
+- Reusable page methods
+- Centralized locators
+- Fixture-based test data
+- Reusable assertions
+- Dynamic test data generation
+- End-to-end UI automation workflows
+- Clean project structure
+
+## Framework Statistics
+
+- Test Cases: 28
+- Spec Files: 23
+- Page Objects: 8
+- Fixture Files: 8
+- Framework Pattern: Page Object Model (POM)
 
 ## Prerequisites
 
@@ -115,21 +167,40 @@ npx cypress run
 npx cypress run --spec "cypress/e2e/login.cy.js"
 ```
 
+## Test Execution
+
+The automation suite has been successfully executed in headless mode.
+
+- Spec Files: 23
+- Test Cases: 28
+- Passing: 28
+- Failing: 0
+
+### Execution Result
+
+![Test Execution](assets/test-execution.png)
+
 ## Reports
 
-The framework currently uses the default Cypress Test Runner for execution and reporting.
+The framework currently uses the Cypress Test Runner for execution.
 
-Support for advanced reporting tools such as Mochawesome or Allure will be added in future enhancements.
+The complete suite consists of:
+
+- 23 Spec Files
+- 28 Automated Test Cases
+- Headless execution using `npx cypress run`
+
+Support for Mochawesome or Allure reporting will be added in future enhancements.
 
 ## Future Enhancements
 
 - GitHub Actions CI/CD integration
-- Mochawesome or Allure reporting
-- API automation
-- Cross-browser execution
-- Environment-based configuration
-- Custom Cypress commands
-- Data-driven test execution
+- Mochawesome Reporting
+- API Automation
+- Cross-browser Execution
+- Environment-based Configuration
+- Custom Cypress Commands
+- Data-driven Test Execution
 
 ## Version Control
 
@@ -145,4 +216,6 @@ The project follows a feature-branch Git workflow to keep development organized 
 
 Software Test Engineer
 
-GitHub: https://github.com/Sneha-AutomationEngineer
+GitHub: [Sneha-AutomationEngineer](https://github.com/Sneha-AutomationEngineer)
+
+LinkedIn: [Sneha Upadhye](https://www.linkedin.com/in/sneha-upadhye-224297226/)

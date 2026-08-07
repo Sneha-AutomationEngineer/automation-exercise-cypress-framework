@@ -33,6 +33,7 @@ describe('New User Registration', function () {
     });
 
     it('New User should be able to register successfully', function () {
+        homePage.openLoginPage();
         loginPage.verifySignUpPage();
         registrationPage.enterSignupDetails(loginData.user, randomEmail);
         registrationPage.verifyPreFilledInformation(loginData.user, randomEmail);
@@ -43,6 +44,8 @@ describe('New User Registration', function () {
     })
 
     it('Register user with existing email should not allow', function () {
+        homePage.openLoginPage();          
+        loginPage.verifySignUpPage();
         registrationPage.enterRegisteredEmail(loginData.user, loginData.username);
         registrationPage.verifyExistingEmailErrorMessage();
     })
