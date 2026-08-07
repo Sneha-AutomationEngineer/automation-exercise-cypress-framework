@@ -1,6 +1,6 @@
 export default class CartPage {
 
-    numberOfProducts = 'tbody tr';
+    numberOfProducts = 'tr[id^="product-"]';;
     cartPrice = '.cart_price p';
     cartQuantity = '.cart_quantity button';
     productTotalPrice = 'tr[id^="product-"] .cart_total_price';
@@ -9,7 +9,7 @@ export default class CartPage {
     checkOutButton = '.check_out';
     registerOrLoginLink = 'p a[href="/login"]';
     commentBoxInCart = 'textarea[name="message"]';
-    tableRow = 'tbody tr';
+    tableRow = 'tr[id^="product-"]';
     removeProduct = '.cart_quantity_delete';
     cartPageBreadCrumb = '.breadcrumb .active'
 
@@ -86,11 +86,18 @@ export default class CartPage {
     }
 
     clearCartIfNotEmpty() {
-    cy.get('body').then(($body) => {
-        if ($body.find(this.removeProduct).length > 0) {
-            cy.get(this.removeProduct).first().click();
+        cy.get('body').then(($body) => {
+            if (!$body.find(this.removeProduct).length) {
+                return;
+            }
+
+            cy.get(this.removeProduct)
+                .first()
+                .click();
+
+            cy.wait(1000);
+
             this.clearCartIfNotEmpty();
-        }
-    });
-}
+        });
+    }
 }
