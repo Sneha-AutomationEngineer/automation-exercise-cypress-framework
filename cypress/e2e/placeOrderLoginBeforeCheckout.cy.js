@@ -48,6 +48,8 @@ describe('Place Order: Login before Checkout', function () {
     })
 
     beforeEach(function () {
+        cy.clearCookies();
+        cy.clearLocalStorage();
         cy.visit('/');
         homePage.verifyHomePageDisplayed();
     })
@@ -63,6 +65,9 @@ describe('Place Order: Login before Checkout', function () {
         homePage.openLoginPage();
         loginPage.login(loginData.username, loginData.password);
         homePage.verifyLoggedInUser(loginData.user);
+        homePage.openCartPage();
+        cartPage.clearCartIfNotEmpty();
+        homePage.openProductsPage();
         productPage.captureAndAddFirstTwoProducts(productsData.continueShopping).then(({ productPrices, productNames }) => {
             homePage.openCartPage();
             cartPage.verifyProductsInCart();
@@ -78,8 +83,6 @@ describe('Place Order: Login before Checkout', function () {
             paymentPage.enterPaymentDetails(loginData.user, paymentsData);
             paymentPage.submitPaymentDetails();
             paymentPage.verifySuccessMessageOfOrder(paymentsData);
-            homePage.deleteAccount();
-            homePage.verifyAccountDeletedAndClickContinue(homePageData.accountDeletedMessage, homePageData.continueAfterAccountDelete);
         })
     })
 })

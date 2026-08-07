@@ -1,8 +1,8 @@
 {
   "username": "snehau@gmail.com",
   "password": "abcd@ef",
-  "user": "sneha",
+  "user": "Sneha",
   "inValidUsername": "Neha@gmail.com",
   "inValidPassword": "abcef",
   "loginErrorMessage": "Your email or password is incorrect!"
-}
+} 

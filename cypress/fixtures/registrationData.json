@@ -1,5 +1,5 @@
 {
-    "firstName": "sneha",
+    "firstName": "Sneha",
     "lastName": "Upadhye",
     "password": "abcd@ef",
     "company": "Infosys",
@@ -8,10 +8,10 @@
     "country": "India",
     "state": "Maharashtra",
     "city": "Pune",
-    "zipcode": "411057",
-    "mobilenumber": "124567890",
+    "zipcode": "411058",
+    "mobilenumber": "123456780",
     "birthDay": "28",
     "birthMonth": "3",
     "birthYear": "2000",
     "continueTextAfterRegistartion": "Continue"
-}
+} 

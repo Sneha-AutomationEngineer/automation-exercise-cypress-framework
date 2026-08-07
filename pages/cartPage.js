@@ -17,7 +17,7 @@ export default class CartPage {
         cy.get(this.cartPageBreadCrumb).should('be.visible');
     }
 
-    verifyProductsInCart() { 
+    verifyProductsInCart() {
         cy.get(this.numberOfProducts).should('have.length', 2);
     }
 
@@ -84,4 +84,13 @@ export default class CartPage {
     verifyProductsCount(expectedCount) {
         cy.get(this.tableRow).should('have.length', expectedCount)
     }
+
+    clearCartIfNotEmpty() {
+    cy.get('body').then(($body) => {
+        if ($body.find(this.removeProduct).length > 0) {
+            cy.get(this.removeProduct).first().click();
+            this.clearCartIfNotEmpty();
+        }
+    });
+}
 }
