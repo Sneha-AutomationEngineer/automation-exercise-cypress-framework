@@ -32,6 +32,11 @@ export default class ProductPage {
 
     verifyProductsListDisplayed() {
         cy.get(this.products).should('be.visible');
+
+        cy.get(this.productCards).then(($cards) => {
+            console.log("Product cards found:", $cards.length);
+        });
+
         cy.get(this.productCards).should('have.length.greaterThan', 0);
     }
 
@@ -63,34 +68,89 @@ export default class ProductPage {
         cy.get(this.searchedProductDetail).should('contain.text', productName);
     }
 
+    captureAndAddSearchedProducts(continueShopping) {
+        const productPrices = [];
+        const productNames = [];
+
+        return cy.get(this.products).find(this.productCards).then(($products) => {
+            const uniqueProducts = [];
+            const seenNames = new Set();
+
+            $products.each((_, el) => {
+                const name = Cypress.$(el).find(this.searchedProductDetail).first().text().trim();
+
+                if (name && !seenNames.has(name)) {
+                    seenNames.add(name);
+                    uniqueProducts.push({ el, name });
+                }
+            });
+
+            const totalProducts = uniqueProducts.length;
+
+            return cy.wrap(uniqueProducts).each((product, index) => {
+                productNames.push(product.name);
+
+                return cy.wrap(product.el).find(this.priceTag).invoke('text').then((price) => {
+                    productPrices.push(price.trim());
+                }).then(() => {
+                    return cy.wrap(product.el).find(this.addCartButton).should('be.visible').click();
+                }).then(() => {
+                    if (index < totalProducts - 1) {
+                        return cy.contains(continueShopping).should('be.visible').click().then(() => {
+                            cy.contains(continueShopping).should('not.be.visible');
+                        });
+                    }
+
+                    return cy.get(this.viewCartLinkInPopup).should('be.visible').click();
+                });
+            }).then(() => ({ productPrices, productNames, totalProducts }));
+        });
+    }
+
     captureAndAddFirstTwoProducts(continueShopping) {
         const productPrices = [];
         const productNames = [];
-        cy.get(this.productCards).each(($product, index) => {
-            if (index < 2) {
-                cy.wrap($product).within(() => {
-                    cy.get(this.priceTag).invoke('text').then((price) => {
-                        productPrices.push(price);
-                    });
-                    cy.get('.productinfo p').invoke('text').then((productName) => {
-                        productNames.push(productName);
-                    });
-                    cy.get(this.addCartButton).click();
-                })
-            }
-            if (index === 0) {
-                cy.contains(continueShopping).click();
-            }
-            if (index === 1) {
-                cy.get(this.viewCartLinkInPopup).click();
-            }
-        })
-        return cy.then(() => {
-            return {
+
+        return cy.get(this.products).find(this.productCards).then(($products) => {
+            const productsToAdd = [];
+            const seenNames = new Set();
+
+            $products.each((_, el) => {
+                if (productsToAdd.length >= 2) {
+                    return false;
+                }
+
+                const name = Cypress.$(el).find(this.searchedProductDetail).first().text().trim();
+
+                if (name && !seenNames.has(name)) {
+                    seenNames.add(name);
+                    productsToAdd.push({ el, name });
+                }
+            });
+
+            const totalProducts = productsToAdd.length;
+
+            return cy.wrap(productsToAdd).each((product, index) => {
+                productNames.push(product.name);
+
+                return cy.wrap(product.el).find(this.priceTag).invoke('text').then((price) => {
+                    productPrices.push(price.trim());
+                }).then(() => {
+                    return cy.wrap(product.el).find(this.addCartButton).should('be.visible').click();
+                }).then(() => {
+                    if (index < totalProducts - 1) {
+                        return cy.contains(continueShopping).should('be.visible').click().then(() => {
+                            cy.contains(continueShopping).should('not.be.visible');
+                        });
+                    }
+
+                    return cy.get(this.viewCartLinkInPopup).should('be.visible').click();
+                });
+            }).then(() => ({
                 productPrices,
                 productNames
-            }
-        })
+            }));
+        });
     }
 
     openFirstProductDetails() {
@@ -123,56 +183,31 @@ export default class ProductPage {
         })
     }
 
-    captureAndAddSearchedProducts(continueShopping) {
-        const productPrices = [];
-        return cy.get(this.productCards).then(($products) => {
-            const totalProducts = $products.length;
-            cy.wrap($products).each(($product, index) => {
-                cy.wrap($product).find(this.priceTag).invoke('text').then((price) => {
-                    productPrices.push(price);
-                })
-
-                cy.wrap($product).find(this.addCartButton).click();
-
-                if (index < totalProducts - 1) {
-                    cy.contains(continueShopping).click();
-                } else {
-                    cy.get(this.viewCartLinkInPopup).click();
-                }
-            })
-            return cy.then(() => {
-                return {
-                    productPrices, totalProducts
-                }
-            })
-        })
-    }
-
-    verifyReviewText(reviewHeaderText){
+    verifyReviewText(reviewHeaderText) {
         cy.get(this.reviewHeader).should('have.text', reviewHeaderText);
     }
 
-    enterNameForReview(user){
+    enterNameForReview(user) {
         cy.get(this.nameTextBoxInReviewSection).type(user)
     }
 
-    enterEmailIdForReview(emailId){
+    enterEmailIdForReview(emailId) {
         cy.get(this.emailTextBoxInReviewSection).type(emailId);
     }
 
-    enterReviewForProduct(reviewComment){
+    enterReviewForProduct(reviewComment) {
         cy.get(this.reviewTextBox).type(reviewComment)
     }
 
-    submitReview(){
+    submitReview() {
         cy.get(this.submitReviewButton).click();
     }
 
-    verifySuccessMessageForReview(successMessageAfterReviewSubmit){
+    verifySuccessMessageForReview(successMessageAfterReviewSubmit) {
         cy.get(this.successMessageAfterReview).should('be.visible').should('contain.text', successMessageAfterReviewSubmit)
     }
 
-    enterReviewDetails(user, username, reviewComment){
+    enterReviewDetails(user, username, reviewComment) {
         this.enterNameForReview(user);
         this.enterEmailIdForReview(username);
         this.enterReviewForProduct(reviewComment);

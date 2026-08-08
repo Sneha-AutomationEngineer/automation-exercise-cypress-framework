@@ -30,7 +30,11 @@ describe('Search product and verify login', function () {
     beforeEach(function () {
         cy.clearCookies();
         cy.clearLocalStorage();
-        cy.visit('/');
+        cy.visit('/', {
+            onBeforeLoad(win) {
+                win.sessionStorage.clear();
+            }
+        });
         homePage.verifyHomePageDisplayed();
     })
 
@@ -47,16 +51,17 @@ describe('Search product and verify login', function () {
         productsPage.searchProduct(productsData.searchProducts.jeans);
         productsPage.verifySearchedProductDisplayed(productsData.searchedProductsHeader);
         productsPage.verifyProductsListDisplayed();
-        productsPage.captureAndAddSearchedProducts(productsData.continueShopping).then(({ productPrices, totalProducts }) => {
+        productsPage.captureAndAddSearchedProducts(productsData.continueShopping).then(({ productPrices, productNames, totalProducts }) => {
             cartPage.verifyProductsCount(totalProducts);
-            cartPage.verifyProductPrice(productPrices);
+            cartPage.verifyProductPriceByName(productNames, productPrices);
             cartPage.verifyProductQuantity(cartData.defaultQuantity);
             cartPage.verifyIndividualProductTotal(productPrices);
             homePage.openLoginPage()
             loginPage.login(loginData.username, loginData.password);
             homePage.verifyLoggedInUser(loginData.user);
             homePage.openCartPage();
-            cartPage.verifyProductPrice(productPrices);
+            cartPage.removeUnexpectedProducts(productNames);
+            cartPage.verifyProductPriceByName(productNames, productPrices);
             cartPage.verifyProductsCount(totalProducts);
         })
     })

@@ -120,7 +120,7 @@ Key design principles:
 
 - Test Cases: 28
 - Spec Files: 23
-- Page Objects: 8
+- Page Objects: 9
 - Fixture Files: 8
 - Framework Pattern: Page Object Model (POM)
 
@@ -183,20 +183,24 @@ The automation suite has been successfully executed in headless mode.
 
 ## Reports
 
-The framework currently uses the Cypress Test Runner for execution.
+The framework uses **cypress-mochawesome-reporter** to generate HTML execution reports.
 
-The complete suite consists of:
+After running the test suite, the report is available at:
 
-- 23 Spec Files
-- 28 Automated Test Cases
-- Headless execution using `npx cypress run`
+```text
+cypress/reports/index.html
+```
 
-Support for Mochawesome reporting will be added in future enhancements.
+The report includes:
+
+- Test execution summary
+- Passed and failed test cases
+- Execution duration
+- Failure screenshots (when applicable)
 
 ## Future Enhancements
 
 - GitHub Actions CI/CD integration
-- Mochawesome Reporting
 - API Automation
 - Cross-browser Execution
 - Environment-based Configuration

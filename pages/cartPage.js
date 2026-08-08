@@ -1,6 +1,6 @@
 export default class CartPage {
 
-    numberOfProducts = 'tbody tr';
+    numberOfProducts = 'tr[id^="product-"]';;
     cartPrice = '.cart_price p';
     cartQuantity = '.cart_quantity button';
     productTotalPrice = 'tr[id^="product-"] .cart_total_price';
@@ -9,7 +9,7 @@ export default class CartPage {
     checkOutButton = '.check_out';
     registerOrLoginLink = 'p a[href="/login"]';
     commentBoxInCart = 'textarea[name="message"]';
-    tableRow = 'tbody tr';
+    tableRow = 'tr[id^="product-"]';
     removeProduct = '.cart_quantity_delete';
     cartPageBreadCrumb = '.breadcrumb .active'
 
@@ -24,9 +24,48 @@ export default class CartPage {
     verifyProductPrice(productPrices) {
         cy.get(this.cartPrice).should('have.length', productPrices.length).each(($price, index) => {
             cy.wrap($price).invoke('text').then((cartPrice) => {
-                expect(cartPrice).to.equal(productPrices[index]);
+                expect(cartPrice.trim()).to.equal(productPrices[index]);
             });
         });
+    }
+
+    // Order-independent: match price by product name (survives login cart merge/reorder)
+    verifyProductPriceByName(productNames, productPrices) {
+        expect(productNames.length).to.equal(productPrices.length);
+
+        productNames.forEach((name, index) => {
+            cy.contains(this.tableRow, name).should('be.visible').find(this.cartPrice).invoke('text').then((cartPrice) => {
+                expect(cartPrice.trim()).to.equal(productPrices[index]);
+            });
+        });
+    }
+
+    // Delete leftover account-cart rows that were not part of this test's adds
+    removeUnexpectedProducts(expectedNames) {
+        const removeNextUnexpected = () => {
+            cy.get('body').then(($body) => {
+                let unexpectedName = null;
+
+                $body.find(this.tableRow).each((_, row) => {
+                    const name = Cypress.$(row).find(this.cartProductName).first().text().trim();
+
+                    if (name && !expectedNames.includes(name)) {
+                        unexpectedName = name;
+                        return false;
+                    }
+                });
+
+                if (!unexpectedName) {
+                    return;
+                }
+
+                cy.contains(this.tableRow, unexpectedName).find(this.removeProduct).click();
+
+                cy.contains(this.cartProductName, unexpectedName).should('not.exist');
+                removeNextUnexpected();
+            });
+        };
+        removeNextUnexpected();
     }
 
     verifyProductName(productNames) {
@@ -56,8 +95,7 @@ export default class CartPage {
             return total + Number(price.replace('Rs. ', '').trim());
         }, 0);
         cy.get(this.grandTotalPrice).invoke('text').then((grandTotal) => {
-            expect(Number(grandTotal.replace('Rs. ', '')
-                .trim())).to.equal(expectedGrandTotal);
+            expect(Number(grandTotal.replace('Rs. ', '').trim())).to.equal(expectedGrandTotal);
         });
     }
 
@@ -86,11 +124,18 @@ export default class CartPage {
     }
 
     clearCartIfNotEmpty() {
-    cy.get('body').then(($body) => {
-        if ($body.find(this.removeProduct).length > 0) {
+        cy.get('body').then(($body) => {
+            const count = $body.find(this.removeProduct).length;
+
+            if (count === 0) {
+                return;
+            }
+
             cy.get(this.removeProduct).first().click();
+
+            cy.get(this.removeProduct).should('have.length', count - 1);
+
             this.clearCartIfNotEmpty();
-        }
-    });
-}
+        });
+    }
 }

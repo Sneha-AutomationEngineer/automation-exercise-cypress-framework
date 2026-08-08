@@ -14,4 +14,28 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import './commands'
+import 'cypress-mochawesome-reporter/register';
+import './commands';
+
+// Ignore only known third-party/site noise from automationexercise.com
+Cypress.on('uncaught:exception', (err) => {
+    const ignoredErrors = [
+        'Bootstrap requires jQuery',
+        'Script error.',
+        'ResizeObserver loop limit exceeded',
+        'ResizeObserver loop completed with undelivered notifications',
+    ];
+
+    if (ignoredErrors.some((message) => err.message.includes(message))) {
+        return false;
+    }
+
+    return true;
+});
+
+// Prevent third-party ads/analytics from blocking the window `load` event
+beforeEach(() => {
+    cy.intercept('**/adsbygoogle.js*', { statusCode: 204, body: '' });
+    cy.intercept('**/beacon.min.js*', { statusCode: 204, body: '' });
+    cy.intercept('**/gtag/**', { statusCode: 204, body: '' });
+});
