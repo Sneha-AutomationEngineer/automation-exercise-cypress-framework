@@ -17,8 +17,21 @@
 import 'cypress-mochawesome-reporter/register';
 import './commands';
 
-// automationexercise.com throws third-party/app errors that should not fail tests
-Cypress.on('uncaught:exception', () => false);
+// Ignore only known third-party/site noise from automationexercise.com
+Cypress.on('uncaught:exception', (err) => {
+    const ignoredErrors = [
+        'Bootstrap requires jQuery',
+        'Script error.',
+        'ResizeObserver loop limit exceeded',
+        'ResizeObserver loop completed with undelivered notifications',
+    ];
+
+    if (ignoredErrors.some((message) => err.message.includes(message))) {
+        return false;
+    }
+
+    return true;
+});
 
 // Prevent third-party ads/analytics from blocking the window `load` event
 beforeEach(() => {

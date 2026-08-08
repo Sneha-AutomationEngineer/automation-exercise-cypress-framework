@@ -38,7 +38,11 @@ module.exports = defineConfig({
           launchOptions.args.push("--disable-gpu");
           launchOptions.args.push("--disable-dev-shm-usage");
           launchOptions.args.push("--disable-background-networking");
-          launchOptions.args.push("--no-sandbox");
+
+          // Sandbox disable is only needed in some CI containers, not local runs
+          if (process.env.CI) {
+            launchOptions.args.push("--no-sandbox");
+          }
         }
         return launchOptions;
       });
