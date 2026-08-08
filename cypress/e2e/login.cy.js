@@ -1,5 +1,5 @@
 import LoginPage from '../../pages/loginPage'
-import HomePage from '../../pages/HomePage'
+import HomePage from '../../pages/homePage'
 
 describe('Login Scenarios', () => {
 
