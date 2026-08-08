@@ -16,3 +16,13 @@
 // Import commands.js using ES2015 syntax:
 import 'cypress-mochawesome-reporter/register';
 import './commands';
+
+// automationexercise.com throws third-party/app errors that should not fail tests
+Cypress.on('uncaught:exception', () => false);
+
+// Prevent third-party ads/analytics from blocking the window `load` event
+beforeEach(() => {
+    cy.intercept('**/adsbygoogle.js*', { statusCode: 204, body: '' });
+    cy.intercept('**/beacon.min.js*', { statusCode: 204, body: '' });
+    cy.intercept('**/gtag/**', { statusCode: 204, body: '' });
+});
