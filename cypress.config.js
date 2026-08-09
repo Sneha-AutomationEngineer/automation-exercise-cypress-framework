@@ -12,7 +12,7 @@ module.exports = defineConfig({
   },
 
   e2e: {
-    baseUrl: "https://automationexercise.com/",
+    baseUrl: process.env.BASE_URL || "https://automationexercise.com/",
     pageLoadTimeout: 120000,
     defaultCommandTimeout: 15000,
     numTestsKeptInMemory: 0,
