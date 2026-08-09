@@ -5,7 +5,9 @@
   "main": "cypress.config.js",
   "scripts": {
   "cy:open": "cypress open",
-  "cy:run": "cypress run"
+  "cy:run": "cypress run",
+ "cy:smoke": "cypress run --browser edge --spec \"cypress/e2e/login.cy.js,cypress/e2e/logout.cy.js,cypress/e2e/registerUser.cy.js,cypress/e2e/products.cy.js,cypress/e2e/searchProducts.cy.js,cypress/e2e/addProducts.cy.js,cypress/e2e/placeOrderLoginBeforeCheckout.cy.js,cypress/e2e/verifyAddress.cy.js\"",
+  "cy:regression": "cypress run"
 },
   "keywords": [],
   "author": "",
