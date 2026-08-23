@@ -5,23 +5,26 @@
 
 # Cypress Automation Framework
 
-> End-to-end UI automation framework for Automation Exercise built using Cypress and JavaScript following the Page Object Model (POM).
+> UI and API automation framework for Automation Exercise built using Cypress and JavaScript following the Page Object Model (POM).
 
 ## Overview
 
-This project is a UI automation framework built using Cypress and JavaScript following the Page Object Model (POM) design pattern.
+This project is a UI and API automation framework built using Cypress and JavaScript following the Page Object Model (POM) design pattern.
 
-It automates end-to-end test scenarios for the Automation Exercise website using reusable page objects, fixture-based test data management, and maintainable test design.
+It automates end-to-end UI and API test scenarios for the Automation Exercise website using reusable page objects, fixture-based test data management, and maintainable test design.
 
-The framework is designed to demonstrate practical UI automation skills, clean code practices, and a scalable project structure similar to those used in real-world QA projects.
+The framework is designed to demonstrate practical UI automation, API automation, clean code practices, and a scalable project structure similar to those used in real-world QA projects.
 
 ## Tech Stack
 
 - JavaScript (ES6)
 - Cypress
+- Cypress API Testing (`cy.request`)
 - Mocha
 - Chai
 - Page Object Model (POM)
+- cypress-mochawesome-reporter
+- GitHub Actions
 - Git
 - GitHub
 
@@ -38,9 +41,14 @@ The project is organized using a feature-based structure to improve readability 
 ```text
 automation-exercise-cypress-framework
 │
+├── .github
+│   └── workflows
+│       └── cypress.yml
+│
 ├── cypress
 │   ├── downloads
 │   ├── e2e
+│   │   └── api
 │   ├── fixtures
 │   ├── screenshots
 │   └── support
@@ -48,7 +56,7 @@ automation-exercise-cypress-framework
 ├── pages
 │   ├── cartPage.js
 │   ├── checkOutPage.js
-│   ├── contactUsPage.js
+│   ├── contactUSPage.js
 │   ├── homePage.js
 │   ├── loginPage.js
 │   ├── paymentPage.js
@@ -69,7 +77,7 @@ automation-exercise-cypress-framework
 
 ## Test Coverage
 
-The framework automates the following functional areas:
+### UI Test Coverage
 
 - Home Page
 - User Registration
@@ -93,6 +101,21 @@ The framework automates the following functional areas:
 - Download Invoice
 - Scroll Up / Scroll Down
 
+### API Test Coverage
+
+API automation covers the Automation Exercise API list (APIs 1–14):
+
+- Products API
+- Brands API
+- Search Product API
+- Verify Login API
+- Create Account API
+- Update Account API
+- Delete Account API
+- Get User Detail By Email API
+
+Positive and negative scenarios are covered with HTTP status, `responseCode`, message, and response body validations.
+
 ## Framework Design
 
 The framework follows the Page Object Model (POM) design pattern to improve code readability, reusability, and maintainability.
@@ -104,6 +127,7 @@ Key design principles:
 - Separation of business actions and assertions
 - Modular and maintainable test scripts
 - Clear feature-based project organization
+- API request and response validation
 
 ## Framework Highlights
 
@@ -114,14 +138,22 @@ Key design principles:
 - Reusable assertions
 - Dynamic test data generation
 - End-to-end UI automation workflows
+- API automation with Cypress
+- Positive and negative API testing
+- Response status and body validation
+- HTML reporting with mochawesome
+- GitHub Actions CI
 - Clean project structure
 
 ## Framework Statistics
 
-- Test Cases: 28
-- Spec Files: 23
+- UI Spec Files: 23
+- UI Test Cases: 28
+- API Spec Files: 6
+- API Test Cases: 14
 - Page Objects: 9
 - Fixture Files: 8
+- API Coverage: Automation Exercise APIs 1–14
 - Framework Pattern: Page Object Model (POM)
 
 ## Prerequisites
@@ -148,33 +180,55 @@ npm install
 
 ## Running the Tests
 
-Use the following commands to execute the automation suite.
-
-Open Cypress Test Runner
+### Open Cypress Test Runner
 
 ```bash
 npx cypress open
 ```
 
-Run in headless mode
+### Run All Tests in Headless Mode
 
 ```bash
 npx cypress run
 ```
 
-## Running a Specific Test
+### Run a Specific UI Test
 
 ```bash
 npx cypress run --spec "cypress/e2e/login.cy.js"
 ```
 
+### Run All API Tests
+
+```bash
+npx cypress run --spec "cypress/e2e/api/**/*.cy.js"
+```
+
+### Run a Specific API Test
+
+```bash
+npx cypress run --spec "cypress/e2e/api/createAccountApi.cy.js"
+```
+
 ## Test Execution
 
-The automation suite has been successfully executed in headless mode.
+### UI Test Execution
+
+The UI automation suite has been successfully executed in headless mode.
 
 - Spec Files: 23
 - Test Cases: 28
 - Passing: 28
+- Failing: 0
+
+### API Test Execution
+
+The API automation suite has been successfully executed in headless mode.
+
+- Spec Files: 6
+- Test Cases: 14
+- APIs Covered: 1–14
+- Passing: 14
 - Failing: 0
 
 ### Execution Result
@@ -200,8 +254,6 @@ The report includes:
 
 ## Future Enhancements
 
-- GitHub Actions CI/CD integration
-- API Automation
 - Cross-browser Execution
 - Environment-based Configuration
 - Custom Cypress Commands
