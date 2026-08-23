@@ -19,12 +19,12 @@ The framework is designed to demonstrate practical UI automation, API automation
 
 - JavaScript (ES6)
 - Cypress
-- Cypress API Testing (`cy.request`)
+- Cypress API Testing
 - Mocha
 - Chai
 - Page Object Model (POM)
 - cypress-mochawesome-reporter
-- GitHub Actions (CI/CD)
+- GitHub Actions (CI/CD with parallel jobs)
 - Git
 - GitHub
 
@@ -62,6 +62,9 @@ automation-exercise-cypress-framework
 │   ├── fixtures
 │   ├── screenshots
 │   └── support
+│       ├── e2e.js
+│       ├── commands.js
+│       └── apiUtils.js
 │
 ├── pages
 │   ├── cartPage.js
@@ -75,9 +78,9 @@ automation-exercise-cypress-framework
 │   └── testCasePage.js
 │
 ├── assets
-│   └── test-execution.png
+│   ├── ui-test-execution.png
+│   └── api-test-execution.png
 │
-├── utils
 ├── package.json
 ├── package-lock.json
 ├── cypress.config.js
@@ -256,6 +259,8 @@ The UI automation suite has been successfully executed in headless mode.
 - Passing: 32
 - Failing: 0
 
+![UI Test Execution](assets/ui-test-execution.png)
+
 ### API Test Execution
 
 The API automation suite has been successfully executed in headless mode.
@@ -266,9 +271,7 @@ The API automation suite has been successfully executed in headless mode.
 - Passing: 14
 - Failing: 0
 
-### Execution Result
-
-![Test Execution](assets/test-execution.png)
+![API Test Execution](assets/api-test-execution.png)
 
 ## Reports
 
