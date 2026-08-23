@@ -24,7 +24,7 @@ The framework is designed to demonstrate practical UI automation, API automation
 - Chai
 - Page Object Model (POM)
 - cypress-mochawesome-reporter
-- GitHub Actions
+- GitHub Actions (CI/CD)
 - Git
 - GitHub
 
@@ -46,9 +46,19 @@ automation-exercise-cypress-framework
 │       └── cypress.yml
 │
 ├── cypress
-│   ├── downloads
 │   ├── e2e
-│   │   └── api
+│   │   ├── api
+│   │   │   ├── productsApi.cy.js
+│   │   │   ├── brandsApi.cy.js
+│   │   │   ├── searchProductApi.cy.js
+│   │   │   ├── verifyLoginApi.cy.js
+│   │   │   ├── createAccountApi.cy.js
+│   │   │   └── getUserDetailByEmailApi.cy.js
+│   │   └── ui
+│   │       ├── login.cy.js
+│   │       ├── logout.cy.js
+│   │       ├── searchProducts.cy.js
+│   │       └── ...
 │   ├── fixtures
 │   ├── screenshots
 │   └── support
@@ -137,18 +147,22 @@ Key design principles:
 - Fixture-based test data
 - Reusable assertions
 - Dynamic test data generation
+- Custom Cypress Commands (`cy.loginAs`)
+- Data-driven test execution
 - End-to-end UI automation workflows
 - API automation with Cypress
 - Positive and negative API testing
 - Response status and body validation
+- Cross-browser execution scripts (Edge / Firefox)
+- Environment-based `BASE_URL` configuration
 - HTML reporting with mochawesome
-- GitHub Actions CI
+- GitHub Actions CI with parallel test execution
 - Clean project structure
 
 ## Framework Statistics
 
 - UI Spec Files: 23
-- UI Test Cases: 28
+- UI Test Cases: 32
 - API Spec Files: 6
 - API Test Cases: 14
 - Page Objects: 9
@@ -183,31 +197,52 @@ npm install
 ### Open Cypress Test Runner
 
 ```bash
-npx cypress open
+npm run cy:open
 ```
 
-### Run All Tests in Headless Mode
+### Run All Tests (Regression)
 
 ```bash
-npx cypress run
+npm test
+```
+
+### Run Smoke Tests
+
+```bash
+npm run test:smoke
+```
+
+### Run UI Tests
+
+```bash
+npm run test:ui
+```
+
+### Run API Tests
+
+```bash
+npm run test:api
 ```
 
 ### Run a Specific UI Test
 
 ```bash
-npx cypress run --spec "cypress/e2e/login.cy.js"
-```
-
-### Run All API Tests
-
-```bash
-npx cypress run --spec "cypress/e2e/api/**/*.cy.js"
+npx cypress run --spec "cypress/e2e/ui/login.cy.js"
 ```
 
 ### Run a Specific API Test
 
 ```bash
 npx cypress run --spec "cypress/e2e/api/createAccountApi.cy.js"
+```
+
+### Cross-browser Smoke / Regression
+
+```bash
+npm run cy:smoke:edge
+npm run cy:smoke:firefox
+npm run cy:regression:edge
+npm run cy:regression:firefox
 ```
 
 ## Test Execution
@@ -217,8 +252,8 @@ npx cypress run --spec "cypress/e2e/api/createAccountApi.cy.js"
 The UI automation suite has been successfully executed in headless mode.
 
 - Spec Files: 23
-- Test Cases: 28
-- Passing: 28
+- Test Cases: 32
+- Passing: 32
 - Failing: 0
 
 ### API Test Execution
@@ -251,13 +286,6 @@ The report includes:
 - Passed and failed test cases
 - Execution duration
 - Failure screenshots (when applicable)
-
-## Future Enhancements
-
-- Cross-browser Execution
-- Environment-based Configuration
-- Custom Cypress Commands
-- Data-driven Test Execution
 
 ## Version Control
 

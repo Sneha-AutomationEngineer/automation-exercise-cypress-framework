@@ -1,12 +1,12 @@
-import CartPage from '../../pages/cartPage';
-import CheckOutPage from '../../pages/checkOutPage';
-import HomePage from '../../pages/homePage';
-import LoginPage from '../../pages/loginPage';
-import RegistrationPage from '../../pages/registrationPage';
-import ProductPage from '../../pages/productsPage';
-import PaymentPage from '../../pages/paymentPage';
+import CartPage from '../../../pages/cartPage';
+import CheckOutPage from '../../../pages/checkOutPage';
+import HomePage from '../../../pages/homePage';
+import LoginPage from '../../../pages/loginPage';
+import RegistrationPage from '../../../pages/registrationPage';
+import ProductsPage from '../../../pages/productsPage';
+import PaymentPage from '../../../pages/paymentPage';
 
-describe('Place product and checkout', function () {
+describe('Download Invoice', function () {
 
     let homePage;
     let cartPage;
@@ -14,7 +14,7 @@ describe('Place product and checkout', function () {
     let registrationPage;
     let randomEmail;
     let checkOutPage;
-    let productPage;
+    let productsPage;
     let productsData;
     let homePageData;
     let cartData;
@@ -61,23 +61,25 @@ describe('Place product and checkout', function () {
     loginPage = new LoginPage();
     registrationPage = new RegistrationPage();
     checkOutPage = new CheckOutPage();
-    productPage = new ProductPage();
+    productsPage = new ProductsPage();
     paymentPage = new PaymentPage();
 
-    it('Should place an order after registering a new user', function () {
-        homePage.openLoginPage();
-        loginPage.verifySignUpPage();
-        registrationPage.enterSignupDetails(loginData.user, randomEmail);
-        registrationPage.verifyPreFilledInformation(loginData.user, randomEmail);
-        registrationPage.enterAccountInformation(registrationData);
-        registrationPage.enterAddressInformation(registrationData);
-        registrationPage.clickCreateAccount();
-        registrationPage.verifyAccountCreated();
-        registrationPage.clickContinueButtonAfterRegistration(registrationData.continueTextAfterRegistartion);
-        homePage.verifyLoggedInUser(loginData.user);
-        productPage.captureAndAddFirstTwoProducts(productsData.continueShopping).then(({ productPrices, productNames }) => {
-            homePage.openCartPage();
+    it('Should download invoice after purchase order', function () {
+        productsPage.captureAndAddFirstTwoProducts(productsData.continueShopping).then(({ productPrices, productNames }) => {
             cartPage.verifyProductsInCart();
+            cartPage.verifyCartPageDisplayed();
+            cartPage.clickCheckoutButton();
+            cartPage.registerOrLoginPopupLink();
+            loginPage.verifySignUpPage();
+            registrationPage.enterSignupDetails(loginData.user, randomEmail);
+            registrationPage.verifyPreFilledInformation(loginData.user, randomEmail);
+            registrationPage.enterAccountInformation(registrationData);
+            registrationPage.enterAddressInformation(registrationData);
+            registrationPage.clickCreateAccount();
+            registrationPage.verifyAccountCreated();
+            registrationPage.clickContinueButtonAfterRegistration(registrationData.continueTextAfterRegistartion);
+            homePage.verifyLoggedInUser(loginData.user);
+            homePage.openCartPage();
             cartPage.clickCheckoutButton();
             checkOutPage.verifyAddresses(registrationData);
             cartPage.verifyProductPrice(productPrices);
@@ -90,6 +92,10 @@ describe('Place product and checkout', function () {
             paymentPage.enterPaymentDetails(loginData.user, paymentsData);
             paymentPage.submitPaymentDetails();
             paymentPage.verifySuccessMessageOfOrder(paymentsData);
+            paymentPage.deleteDownloadedInvoice(paymentsData.invoiceFileName);
+            paymentPage.clickOnDownloadInvoice();
+            paymentPage.verifyDownloadedInvoice(paymentsData.invoiceFileName);
+            paymentPage.clickContinueButton();
             homePage.deleteAccount();
             homePage.verifyAccountDeletedAndClickContinue(homePageData.accountDeletedMessage, homePageData.continueAfterAccountDelete);
         })

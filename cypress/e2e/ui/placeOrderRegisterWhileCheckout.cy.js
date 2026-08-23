@@ -1,15 +1,18 @@
-import CartPage from '../../pages/cartPage';
-import CheckOutPage from '../../pages/checkOutPage';
-import HomePage from '../../pages/homePage';
-import LoginPage from '../../pages/loginPage';
-import ProductPage from '../../pages/productsPage';
-import PaymentPage from '../../pages/paymentPage';
+import CartPage from '../../../pages/cartPage';
+import CheckOutPage from '../../../pages/checkOutPage';
+import HomePage from '../../../pages/homePage';
+import LoginPage from '../../../pages/loginPage';
+import RegistrationPage from '../../../pages/registrationPage';
+import ProductPage from '../../../pages/productsPage';
+import PaymentPage from '../../../pages/paymentPage';
 
-describe('Place Order: Login before Checkout', function () {
+describe('Place product and checkout', function () {
 
     let homePage;
     let cartPage;
     let loginPage;
+    let registrationPage;
+    let randomEmail;
     let checkOutPage;
     let productPage;
     let productsData;
@@ -18,12 +21,16 @@ describe('Place Order: Login before Checkout', function () {
     let paymentPage;
     let paymentsData;
     let loginData;
-    let existingUserData;
+    let registrationData;
 
 
     before(function () {
         cy.fixture('loginData').then((testData) => {
             loginData = testData;
+        })
+
+        cy.fixture('registrationData').then((testData) => {
+            registrationData = testData;
         })
 
         cy.fixture('cartData').then((testData) => {
@@ -38,39 +45,43 @@ describe('Place Order: Login before Checkout', function () {
             paymentsData = testData;
         })
 
-        cy.fixture('existingUserData').then((testData) => {
-            existingUserData = testData;
-        })
-
         cy.fixture('homePageData').then((testData) => {
             homePageData = testData;
-        });
+        })
     })
 
-    beforeEach(function () {
-        cy.clearCookies();
-        cy.clearLocalStorage();
+    beforeEach(() => {
         cy.visit('/');
         homePage.verifyHomePageDisplayed();
-    })
+        randomEmail = `sneha${Date.now()}${Cypress._.random(1000, 9999)}@gmail.com`;
+    });
 
     homePage = new HomePage();
     cartPage = new CartPage();
     loginPage = new LoginPage();
+    registrationPage = new RegistrationPage();
     checkOutPage = new CheckOutPage();
     productPage = new ProductPage();
     paymentPage = new PaymentPage();
 
-    it('should place an order after login and complete checkout successfully', function () {
-        cy.loginAs(loginData.username, loginData.password, loginData.user);
-        homePage.openCartPage();
-        cartPage.clearCartIfNotEmpty();
+    it('Should register during checkout and place the order successfully', function () {
         homePage.openProductsPage();
         productPage.captureAndAddFirstTwoProducts(productsData.continueShopping).then(({ productPrices, productNames }) => {
-            homePage.openCartPage();
             cartPage.verifyProductsInCart();
             cartPage.clickCheckoutButton();
-            checkOutPage.verifyAddresses(existingUserData);
+            cartPage.registerOrLoginPopupLink();
+            loginPage.verifySignUpPage();
+            registrationPage.enterSignupDetails(loginData.user, randomEmail);
+            registrationPage.verifyPreFilledInformation(loginData.user, randomEmail);
+            registrationPage.enterAccountInformation(registrationData);
+            registrationPage.enterAddressInformation(registrationData);
+            registrationPage.clickCreateAccount();
+            registrationPage.verifyAccountCreated();
+            registrationPage.clickContinueButtonAfterRegistration(registrationData.continueTextAfterRegistartion);
+            homePage.verifyLoggedInUser(loginData.user);
+            homePage.openCartPage();
+            cartPage.clickCheckoutButton();
+            checkOutPage.verifyAddresses(registrationData);
             cartPage.verifyProductPrice(productPrices);
             cartPage.verifyProductName(productNames);
             cartPage.verifyProductQuantity(cartData.defaultQuantity);
@@ -81,6 +92,8 @@ describe('Place Order: Login before Checkout', function () {
             paymentPage.enterPaymentDetails(loginData.user, paymentsData);
             paymentPage.submitPaymentDetails();
             paymentPage.verifySuccessMessageOfOrder(paymentsData);
-        })
+            homePage.deleteAccount();
+            homePage.verifyAccountDeletedAndClickContinue(homePageData.accountDeletedMessage, homePageData.continueAfterAccountDelete);
+        });
     })
 })

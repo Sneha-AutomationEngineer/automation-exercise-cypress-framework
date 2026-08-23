@@ -1,5 +1,5 @@
-import HomePage from '../../pages/homePage';
-import CartPage from '../../pages/cartPage';
+import HomePage from '../../../pages/homePage';
+import CartPage from '../../../pages/cartPage';
 
 describe('Add To Cart Recommended Items', function () {
 

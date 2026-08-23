@@ -2,7 +2,22 @@
   "username": "snehau@gmail.com",
   "password": "abcd@ef",
   "user": "Sneha",
-  "inValidUsername": "Neha@gmail.com",
-  "inValidPassword": "abcef",
-  "loginErrorMessage": "Your email or password is incorrect!"
-} 
+  "loginErrorMessage": "Your email or password is incorrect!",
+  "invalidLoginCases": [
+    {
+      "title": "invalid username",
+      "username": "Neha@gmail.com",
+      "password": "abcd@ef"
+    },
+    {
+      "title": "invalid password",
+      "username": "snehau@gmail.com",
+      "password": "abcef"
+    },
+    {
+      "title": "invalid credentials",
+      "username": "Neha@gmail.com",
+      "password": "abcef"
+    }
+  ]
+}

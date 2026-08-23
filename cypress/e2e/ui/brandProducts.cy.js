@@ -1,5 +1,5 @@
-import HomePage from '../../pages/homePage';
-import ProductsPage from '../../pages/productsPage';
+import HomePage from '../../../pages/homePage';
+import ProductsPage from '../../../pages/productsPage';
 
 describe('View and Cart Brand Product', function(){
 

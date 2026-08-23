@@ -1,5 +1,5 @@
-import HomePage from '../../pages/homePage';
-import ProductPage from '../../pages/productsPage';
+import HomePage from '../../../pages/homePage';
+import ProductPage from '../../../pages/productsPage';
 
 describe('Product Page', function(){
 

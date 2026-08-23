@@ -1,6 +1,6 @@
-import HomePage from '../../pages/homePage';
-import ProductsPage from '../../pages/productsPage';
-import LoginPage from '../../pages/loginPage';
+import HomePage from '../../../pages/homePage';
+import ProductsPage from '../../../pages/productsPage';
+import LoginPage from '../../../pages/loginPage';
 
 describe('Add Review', function(){
 
