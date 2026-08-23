@@ -56,9 +56,7 @@ describe('Search product and verify login', function () {
             cartPage.verifyProductPriceByName(productNames, productPrices);
             cartPage.verifyProductQuantity(cartData.defaultQuantity);
             cartPage.verifyIndividualProductTotal(productPrices);
-            homePage.openLoginPage()
-            loginPage.login(loginData.username, loginData.password);
-            homePage.verifyLoggedInUser(loginData.user);
+            cy.loginAs(loginData.username, loginData.password, loginData.user);
             homePage.openCartPage();
             cartPage.removeUnexpectedProducts(productNames);
             cartPage.verifyProductPriceByName(productNames, productPrices);

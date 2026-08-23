@@ -62,9 +62,7 @@ describe('Place Order: Login before Checkout', function () {
     paymentPage = new PaymentPage();
 
     it('should place an order after login and complete checkout successfully', function () {
-        homePage.openLoginPage();
-        loginPage.login(loginData.username, loginData.password);
-        homePage.verifyLoggedInUser(loginData.user);
+        cy.loginAs(loginData.username, loginData.password, loginData.user);
         homePage.openCartPage();
         cartPage.clearCartIfNotEmpty();
         homePage.openProductsPage();
