@@ -1,6 +1,6 @@
-import HomePage from "../../pages/homePage"
-import LoginPage from "../../pages/loginPage";
-import RegistrationPage from '../../pages/registrationPage'
+import HomePage from "../../../pages/homePage"
+import LoginPage from "../../../pages/loginPage";
+import RegistrationPage from '../../../pages/registrationPage'
 
 describe('New User Registration', function () {
 

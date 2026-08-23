@@ -1,6 +1,6 @@
-import HomePage from '../../pages/homePage';
-import ProductsPage from '../../pages/productsPage';
-import CartPage from '../../pages/cartPage';
+import HomePage from '../../../pages/homePage';
+import ProductsPage from '../../../pages/productsPage';
+import CartPage from '../../../pages/cartPage';
 
 let productsPage;
 let homePage;

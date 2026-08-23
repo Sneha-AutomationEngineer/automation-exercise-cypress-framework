@@ -1,5 +1,5 @@
-import ContactUsPage from '../../pages/contactUSPage';
-import HomePage from '../../pages/homePage';
+import ContactUsPage from '../../../pages/contactUSPage';
+import HomePage from '../../../pages/homePage';
 
 describe('Contact Us Form', function () {
 

@@ -1,9 +1,9 @@
-import HomePage from '../../pages/homePage';
-import LoginPage from '../../pages/loginPage';
-import ProductsPage from '../../pages/productsPage';
-import RegistrationPage from '../../pages/registrationPage';
-import CartPage from '../../pages/cartPage';
-import CheckOutPage from '../../pages/checkOutPage';
+import HomePage from '../../../pages/homePage';
+import LoginPage from '../../../pages/loginPage';
+import ProductsPage from '../../../pages/productsPage';
+import RegistrationPage from '../../../pages/registrationPage';
+import CartPage from '../../../pages/cartPage';
+import CheckOutPage from '../../../pages/checkOutPage';
 
 describe('Verify address details in checkout page', function () {
 

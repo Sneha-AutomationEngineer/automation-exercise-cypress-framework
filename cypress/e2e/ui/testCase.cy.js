@@ -1,5 +1,5 @@
-import HomePage from '../../pages/homePage';
-import TestCasePage from '../../pages/testCasePage';
+import HomePage from '../../../pages/homePage';
+import TestCasePage from '../../../pages/testCasePage';
 
 describe('Test Cases Page', function(){
 

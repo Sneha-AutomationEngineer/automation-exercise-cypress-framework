@@ -9,6 +9,10 @@ on:
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        containers: [1, 2, 3]
 
     env:
       BASE_URL: https://automationexercise.com/
@@ -30,13 +34,20 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           install: false
-          command: npm run cy:smoke
+          command: |
+            if [ "${{ matrix.containers }}" = "1" ]; then
+              npx cypress run --spec "cypress/e2e/ui/login.cy.js,cypress/e2e/ui/logout.cy.js,cypress/e2e/ui/registerUser.cy.js,cypress/e2e/ui/products.cy.js"
+            elif [ "${{ matrix.containers }}" = "2" ]; then
+              npx cypress run --spec "cypress/e2e/ui/searchProducts.cy.js,cypress/e2e/ui/addProducts.cy.js,cypress/e2e/ui/placeOrderLoginBeforeCheckout.cy.js,cypress/e2e/ui/verifyAddress.cy.js"
+            else
+              npx cypress run --spec "cypress/e2e/api/**/*.cy.js"
+            fi
 
       - name: Upload Mochawesome report
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: cypress-mochawesome-report
+          name: cypress-mochawesome-report-${{ matrix.containers }}
           path: cypress/reports
           if-no-files-found: ignore
 
@@ -44,6 +55,6 @@ jobs:
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ matrix.containers }}
           path: cypress/screenshots
           if-no-files-found: ignore

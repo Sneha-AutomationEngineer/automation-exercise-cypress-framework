@@ -56,9 +56,13 @@ describe('Verify Login API', () => {
     });
   
     it('should reject login with invalid details', () => {
+      const invalidCase = loginData.invalidLoginCases.find(
+        (testCase) => testCase.title === 'invalid credentials'
+      );
+
       verifyLogin({
-        email: loginData.inValidUsername,
-        password: loginData.inValidPassword
+        email: invalidCase.username,
+        password: invalidCase.password
       }).then((body) => {
         expect(body.responseCode).to.eq(404);
         expect(body.message).to.eq('User not found!');

@@ -1,7 +1,7 @@
-import HomePage from '../../pages/homePage';
-import ProductsPage from '../../pages/productsPage';
-import LoginPage from '../../pages/loginPage';
-import CartPage from '../../pages/cartPage';
+import HomePage from '../../../pages/homePage';
+import ProductsPage from '../../../pages/productsPage';
+import LoginPage from '../../../pages/loginPage';
+import CartPage from '../../../pages/cartPage';
 
 let homePage;
 let productsPage;
